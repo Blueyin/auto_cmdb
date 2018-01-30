@@ -44,9 +44,9 @@ def wirte_track_mark(num):
 def read_track_mark():
     f = open("/CMDB/app/backend/track_num.conf")
     try:
-	num = f.read()
+        num = f.read()
     finally:
-	f.close()
+        f.close()
     return num
 def date_result(data):
     timeArray = time.strptime(data, "%Y-%m-%d %H:%M:%S")
@@ -59,9 +59,12 @@ def index(request):
     idc_num = total_idc["idc_name__count"]
     total_host = HostList.objects.aggregate(Count('hostname'))
     host_num = total_host["hostname__count"]
-    return render_to_response("index.html",locals()) 
+    return render_to_response("index.html",locals())
+
 def login(request):
     return render_to_response("login.html")
+
+@login_required
 def authin(request):
     username = request.POST.get('username','')
     password = request.POST.get('password','')
@@ -75,10 +78,12 @@ def authin(request):
             return  render_to_response('index.html',{'login_user':request.user,'idc_num':idc_num,'host_num':host_num})
     else:
             return render_to_response('login.html',{'login_err':'Wrong username or password'})
+
 @login_required
 def idc(request):
     all_idc = Idc.objects.all()
     return render_to_response("idc.html",locals())
+
 @login_required
 def addidc(request):
     nameInput = request.GET['nameInput'] 
@@ -86,17 +91,20 @@ def addidc(request):
     idc_add = Idc(idc_name=nameInput,remark=msgInput)
     idc_add.save()
     return HttpResponse('ok')
+
 @login_required
 def idc_delete(request,id=None):
     if request.method == 'GET':
         id = request.GET.get('id')
         Idc.objects.filter(id=id).delete()
         return HttpResponseRedirect('/idc/')
+
 @login_required
 def author(request):
     all_host = HostList.objects.all() 
     all_author = Author.objects.all()
     return render_to_response("author.html",locals())
+
 @login_required
 def addauthor(request):
     if request.method == 'GET':
@@ -108,47 +116,48 @@ def addauthor(request):
         author_add = Author(name=name,user=user,passwd=passwd,key=key,group=group)
         author_add.save()
         return HttpResponse('ok')
+
 @login_required
 def upauthor(request):
     if request.method == 'GET':
-	name = request.GET['kname']
- 	all_result = Author.objects.filter(name=name)	
-	user = all_result.values()[0]['user']
-	#user = request.GET['kuser']
-	passwd = request.GET['kpasswd']
-	# kip change ip
-	old_ip = request.GET['kip']
+        name = request.GET['kname']
+        all_result = Author.objects.filter(name=name)
+        user = all_result.values()[0]['user']
+        passwd = request.GET['kpasswd']
+        old_ip = request.GET['kip']
         old_ip = json.loads(json.dumps(old_ip))
         main_ip =  old_ip.split('[')[1].split(']')[0]
-	ip = []
+        ip = []
         for ips in main_ip.split(','):
             ip.append(ips.split('"')[1])
-	group = request.GET['kgroup']
-	try:
-	    cp(ip)
-	    if group == 'yw':
+        group = request.GET['kgroup']
+        try:
+            cp(ip)
+            if group == 'yw':
                 print ywadd(user, ip, group)
             elif group == 'dev':
                 print add(user, ip, group)
             else:
                 print bigdata(user, ip, group)
-	except:
-	    return HttpResponse('false')
-	else:
-	    return HttpResponse('ok')
+        except:
+            return HttpResponse('false')
+        else:
+            return HttpResponse('ok')
+
 @login_required
 def author_delete(request,id=None):
     if request.method == 'GET':
         id = request.GET.get('id')
         all_result = Author.objects.filter(id=id)
         user = all_result.values()[0]['user']
-	group = all_result.values()[0]['group']
-	if group == 'dev':
-	    devdel(user,group)
-	elif group == 'bigdata':
-	    bigdatadel(user,group)
+        group = all_result.values()[0]['group']
+        if group == 'dev':
+            devdel(user,group)
+        elif group == 'bigdata':
+            bigdatadel(user,group)
         Author.objects.filter(id=id).delete()
         return HttpResponseRedirect('/author/')
+
 @login_required
 def author_edit(request,id=None):
     if request.method == 'GET':
@@ -156,14 +165,15 @@ def author_edit(request,id=None):
         all_user = Author.objects.all()
         all_author = Author.objects.filter(id=id)
         return render_to_response("author_edit.html",locals())
+
 def author_result(request):
     if request.method =='GET':
-	id = request.GET['id']
+        id = request.GET['id']
         name = request.GET['name']
         key = request.GET['key']
         user = request.GET['user']
         passwd = request.GET['passwd']
-	group = request.GET['group']
+        group = request.GET['group']
         try:
             author_update = Author.objects.filter(id=id).update(name=name,user=user,passwd=passwd,key=key,group=group)
             author_update.save()
@@ -171,15 +181,15 @@ def author_result(request):
             print "get exception"
         finally:
             return HttpResponse('ok')
+
 @login_required
 def key_result(request):
     if request.method == 'GET':
         ret_api = saltstack()
-        #user = request.GET.get('user')
-	user = Author.objects.filter(id=id)
+        user = Author.objects.filter(id=id)
         for user in user:
             key_id = user.user
-	    key_group = user.group
+            key_group = user.group
             sapi = SaltAPI(url=ret_api["url"],username=ret_api["user"],password=ret_api["passwd"])
             ret = sapi.remote_execution(key_group,'cmd.run','ls')
             print salt_return.objects.all()
@@ -223,10 +233,11 @@ def mac_delete(request,id=None):
 @login_required
 def mac_edit(request,id=None):   
     if request.method == 'GET':
-	id = request.GET.get('id')
-	all_idc = Idc.objects.all()
+        id = request.GET.get('id')
+        all_idc = Idc.objects.all()
         all_host=HostList.objects.filter(id=id)
-	return render_to_response("mac_edit.html",locals())
+    return render_to_response("mac_edit.html",locals())
+
 @login_required
 def macresult(request):
     if request.method =='GET':
@@ -239,15 +250,16 @@ def macresult(request):
         try:
             mac_update = HostList.objects.filter(id=id).update(ip=ip,hostname=name,application=service,idc_name=idc_name,bianhao=idc_bh)
             mac_update.save()
-	except:
-	    print "get exception"
-	finally: 
-            return HttpResponse('ok') 
+        except:
+            print "get exception"
+        finally:
+            return HttpResponse('ok')
+
 class UploadForm(forms.Form):
     headImg = forms.FileField()
+
 @login_required
 def file(request):
-#    if request.method == 'POST':
     all_group = Group.objects.all()
     all_file = Upload.objects.all()
     uf = UploadForm(request.POST,request.FILES)
@@ -257,33 +269,30 @@ def file(request):
         user.headImg = headImg
         user.save()
     return render_to_response('file.html',locals())
-#    else:
-#        uf = UserForm()
-#        return render_to_response('file.html',{'uf':uf})  
+
 @login_required
 def file_result(request):
     if request.method == 'GET':
-	import sys
-	reload(sys)
-	sys.setdefaultencoding( "utf-8" )
-	g_name = request.GET.get('g_name')
-	file = request.GET.get('file')
-	dir = request.GET.get('dir')
-	GroupList = Group.objects.all()
-#	file_result = []
-	list_coun = []
+        import sys
+		reload(sys)
+	    sys.setdefaultencoding( "utf-8" )
+	    g_name = request.GET.get('g_name')
+	    file = request.GET.get('file')
+	    dir = request.GET.get('dir')
+	    GroupList = Group.objects.all()
+	    list_coun = []
         project_success = []
         project_fail = []
-	for groupname in GroupList:
+        for groupname in GroupList:
             if groupname.name in g_name:
-                print "slected group:",groupname.name
+                print "slected groupname.name"
                 for selected_ip in HostList.objects.filter(group__name = groupname.name):
                     host = HostList.objects.filter(ip=selected_ip.ip)
                     for host in host:
-			key_id = host.hostname
-			cmd = "salt %s cp.get_file salt://%s %s"%(key_id,file,dir)
-     		        os.popen(cmd).read()
-			list_coun.append(host)
+                        key_id = host.hostname
+                        cmd = "salt %s cp.get_file salt://%s %s"%(key_id,file,dir)
+                        os.popen(cmd).read()
+                list_coun.append(host)
                 num = len(list_coun)
                 wirte_track_mark(str(num))
                 all_result = salt_return.objects.all()[0:num]
@@ -297,16 +306,12 @@ def file_result(request):
                 fail_num = len(project_fail)
                 result = {'success':success_num,'fail':fail_num}
                 return HttpResponse(json.dumps(result))
-#			key_id = {'host':key_id,'ret':result}
-#			file_result.append(key_id)
-#		data = json.dumps(file_result)
-#		print data
-#		return HttpResponse(data)
+
 @login_required
 def command(request):
     if request.method == 'GET':
-	all_host = HostList.objects.all()
-    return render_to_response("command.html",locals())
+        all_host = HostList.objects.all()
+        return render_to_response("command.html",locals())
 @login_required
 def command_result(request):
     if request.method == 'GET':
@@ -318,23 +323,23 @@ def command_result(request):
             key_id = host.hostname
             sapi = SaltAPI(url=ret_api["url"],username=ret_api["user"],password=ret_api["passwd"])
             ret = sapi.remote_execution(key_id,'cmd.run',command)
-	    #print salt_return.objects.all()
             time.sleep(0.8)
-	    all_result = salt_return.objects.all().order_by("-id")[0:1]
-	    for ret in all_result:
-		print ret.result
-		key_id = ret.host
-		ret = ret.result
-		r_data = {'host':key_id,'ret':ret}
+            all_result = salt_return.objects.all().order_by("-id")[0:1]
+            for ret in all_result:
+                print ret.result
+                key_id = ret.host
+                ret = ret.result
+                r_data = {'host':key_id,'ret':ret}
                 data = json.dumps(r_data)
                 print data
                 return HttpResponse(data)
+
 @login_required
 def command_group(request):
     if request.method == 'GET':
-	all_group = Group.objects.all()
-    return render_to_response("command_group.html",locals())
-def command_group_result(request):
+        all_group = Group.objects.all()
+        return render_to_response("command_group.html",locals())
+def command_group_resul         t(request):
     if request.method == 'GET':
 	ret_api = saltstack()
         g_name = request.GET.get('g_name')
@@ -692,7 +697,7 @@ def searchtem(request):
 	    host_list.append(i.name)
 	hosts_list=list(set(host_list).difference(set(data_list)))
     return HttpResponse(json.dumps({"data_list":data_list,"hosts_list":hosts_list}))	
-    #print data_list
+
 def getdata(request):
     if request.method == 'GET':
 	data_list = []
@@ -723,7 +728,6 @@ def startsearch(request):
         samples = request.GET.get("samples")
     	search=ES_SEARCH(start,end,samples)
 	data=search.es_search()
-	#print data
 	if data is 'OK':
 	    return HttpResponse('ok')
 	else:
@@ -792,8 +796,8 @@ def operate_delete(request):
     if request.method == 'GET':
         id = request.GET.get('id')
         operate_list.objects.filter(id=id).delete()
-	all_result = operate_list.objects.all()
-        return render_to_response("operatelist.html",locals())
+    all_result = operate_list.objects.all()
+    return render_to_response("operatelist.html",locals())
 
 
 @login_required
@@ -805,8 +809,8 @@ def operate_param_delete(request):
         all_result = operate_list.objects.filter(id=new_id)
         all_host = HostList.objects.all()
         all_param = operate_params.objects.filter(job_name=all_result.values()[0]['name'])
-	return HttpResponseRedirect("/operate/operatelist/operateedit?id={0}".format(new_id),locals()) 
-        #return render_to_response("edit_operate.html",locals())
+    return HttpResponseRedirect("/operate/operatelist/operateedit?id={0}".format(new_id),locals())
+
 
 
 @login_required
@@ -825,11 +829,10 @@ def update_action(request):
         host = []
         for i in hosts.split(','):
             host.append(i.split('"')[1])
-	status="可用"
-	change_time=time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+        status="可用"
+        change_time=time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
         params = request.GET['params']
         params = json.loads(params)
-        #var_params=list()
         for i in params:
             var_list = i['param_id']
             var_name = i['param_name']
@@ -838,28 +841,25 @@ def update_action(request):
 	    try:
 	        operate_id = i['operate_id']
 	    except:
-		print "operate id get exception"
+		    print "operate id get exception"
 	    else:
 	    	if operate_id == "":
 		    params_add = operate_params(param_id=var_list,param_name=var_name,param_value=var_value,param_text=var_text,job_id=id)
 		    params_add.save()
 		else:
 		    all_param = operate_params.objects.filter(id=operate_id)
-		    #print var_list,var_name,=var_value,var_text,name
 		    try:
 		        params_update = all_param.update(param_id=var_list,param_name=var_name,param_value=var_value,param_text=var_text,job_id=id)
 		        params_update.save()
-		    except:
-			continue
-			#print "param get exception"
+            except:
+                continue
 		    else:
-			continue
+                continue
         try:
             action_update = operate_list.objects.filter(id=id).update(name=name,label=label,kinds=kinds,host=host,change_time=change_time,script=script,editor=editor,status=status,action=action)
             action_update.save()
         except:
-	    log_update = "get exception"
-            #print "get exception"
+            log_update = "get exception"
         finally:
             return HttpResponse('ok')
 
@@ -904,7 +904,6 @@ def update_operate(request):
                         params_update.save()
                     except:
                         continue
-                        #print "param get exception"
                     else:
                         continue
 
@@ -992,7 +991,7 @@ def schedule_operate_delete(request):
 	all_operate = operate_list.objects.all()
 	all_result_operate = schedule_for_operate.objects.filter(schedule_id=newid)
 	return HttpResponseRedirect("/operate/schedule/scheduleedit?id={0}".format(newid), locals())
-        #return render_to_response("edit_schedule.html",locals())
+
 
 @login_required
 def schedule_operate_edit(request):
@@ -1026,12 +1025,12 @@ def update_schedule(request):
         except:
             log_schedule =  "schedule get exception"
         finally:
-	    for i in jobs:
+	        for i in jobs:
                 job_id = i['job_id']
                 list_id = i['list_id']
                 job_name = i['job_name']
 		try:
-               	    operate_id = i['operate_id']
+            operate_id = i['operate_id']
 		except:
 		    print "operate id get exception"
 		else:
@@ -1047,7 +1046,7 @@ def update_schedule(request):
                         status = all_result.values()[0]['status']
                         schedule_for_operate_add = schedule_for_operate(name=job_id,list_id=list_id,job_name=job_name,label=label,kinds=kinds,host=host,change_time=change_time,script=script,editor=editor,status=status,action=action,schedule_id=id)
                         schedule_for_operate_add.save()
-			var_params=add_param(id,list_id)
+			var_params=add_param(id, list_id)
 		    else:
                         all_result = schedule_for_operate.objects.filter(id=operate_id)
 		        try:
@@ -1100,12 +1099,11 @@ def addfun(request):
             all_result = schedule_list.objects.filter(name=name)
             schedule_id = all_result.values()[0]['id']
 	    for i in jobs:
-		job_id = i['job_id'] 
-		list_id = i['list_id'] 
-		job_name = i['job_name'] 
+		job_id = i['job_id']
+		list_id = i['list_id']
+		job_name = i['job_name']
 		all_result = operate_list.objects.filter(name=job_id)
-		print job_id
-		#all_result.values()[0]
+
 		label = all_result.values()[0]['label']
 		kinds = all_result.values()[0]['kinds']
 	        host = all_result.values()[0]['host']
@@ -1114,9 +1112,9 @@ def addfun(request):
 		action = all_result.values()[0]['action']
 		change_time = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
 		status = all_result.values()[0]['status']
-		
+
 		try:
-		    schedule_for_operate_add = schedule_for_operate(name=job_id,list_id=list_id,job_name=job_name,label=label,kinds=kinds,host=host,change_time=change_time,script=script,editor=editor,status=status,action=action,schedule_id=schedule_id) 
+		    schedule_for_operate_add = schedule_for_operate(name=job_id,list_id=list_id,job_name=job_name,label=label,kinds=kinds,host=host,change_time=change_time,script=script,editor=editor,status=status,action=action,schedule_id=schedule_id)
 		    schedule_for_operate_add.save()
 		except:
 		    print "get exception"
@@ -1178,11 +1176,10 @@ def work_schedule_operate(request):
 def work_schedule(request):
     global work_enable
     if work_enable == 1:
-    #if request.method == 'GET':
         id = request.GET['id']
         all_result = schedule_list.objects.filter(id=id)
         all_schedule = all_result.values()[0]
-        all_results =  schedule_for_operate.objects.filter(schedule_id=id)
+        all_results = schedule_for_operate.objects.filter(schedule_id=id)
         try:
             schedule_running.delay(all_schedule['name'],all_schedule['user'],all_schedule['fun'],all_schedule['action_name'],id,all_results.values())
 	    work_enable = 0
@@ -1190,7 +1187,7 @@ def work_schedule(request):
             print "编排失败"
         else:
 	    return HttpResponseRedirect("/operate/work",locals())
-		
+
 @login_required
 def work_result(request):
     if request.method == 'GET':
