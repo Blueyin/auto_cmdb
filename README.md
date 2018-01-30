@@ -1,6 +1,8 @@
 **运维平台搭建过程**
 ___
 
+**https://www.jianshu.com/p/26624ca55212**
+
 **开发环境**
 
     centos 6.5 django 1.8 python 2.7
