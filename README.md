@@ -25,9 +25,11 @@ ___
 **1、在服务端建立/web目录。把项目拷贝到目录下。**
 
 **2、在服务起端执行脚本:(在/CMDB/app/backend目录存放)**
+
     install_server.sh
     
 **3、在cp 客户端脚本到client执行，注意执行格式：**
+
     ./install_client.sh client 192.168.63.239     
     
     client表示客户端主机ID，建议跟主机的Hostname一致，，后面的IP表示server端的IP地址。
