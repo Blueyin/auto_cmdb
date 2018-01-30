@@ -43,13 +43,13 @@ create database cmdb default charset=utf8;
 [db]
 db_host = 127.0.0.1  
 db_port = 3306
-db_user = root
-db_pass = 123456
+db_user = test
+db_pass = test_1234
 db_name = cmdb
 [saltstack]
-url = https://192.168.0.194:8999
-user = salt
-pass = 123456
+url = https://192.168.0.2:8888
+user = test
+pass = test_1234
 [network]
 device = eth0
 9、数据库创建：
@@ -66,7 +66,7 @@ python manage.py makemigrations
 nohup python salt_event_to_mysql.py &
 nohup python salt_event_to_mysql.py &   ###事件监听返回日志
 
-nohup ./manage.py runserver 0.0.0.0:8999 &
+nohup ./manage.py runserver 0.0.0.0:8888 &
 nohup python manage.py celery worker -A CMDB -l info
 nohup python manage.py celery beat --loglevel=info
 
