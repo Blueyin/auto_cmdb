@@ -35,7 +35,6 @@ client表示客户端主机ID，建议跟主机的Hostname一致，，后面的I
 salt '*' saltutil.sync_all
 6、在server端安装salt-api，因为大部分操作都是调用api,可以参考博客（因为需要手工指定证书，所以没有做成脚本的形式）：
 
-*备注：做到博客的这一步，出这个结果说明salt-api安装成功（IP选择自己的ip,X-Auth-Token用自己生成的）：
 7、建立mysql 数据库并且授权账号登录：
 
 create database cmdb default charset=utf8;
