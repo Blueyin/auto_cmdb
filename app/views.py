@@ -19,16 +19,15 @@ import MySQLdb
 #import MySQLdb as mysql
 import  ConfigParser,sys,json,os,time,pickle
 import time
-#db = mysql.connect(user="root", passwd="123456", db="monitor", charset="utf8")
-db =  MySQLdb.connect(host="192.168.0.194",user="salt",passwd="salt_1234",db="cmdb",charset="utf8")
+db =  MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
 db.autocommit(True)
 job_enable = 1
 work_enable = 1
-#c = db.cursor()
+
 
 def saltstack():
     config = ConfigParser.ConfigParser()  
-    config.read("/data1/web/CMDB/app/backend/config.ini")
+    config.read("/CMDB/app/backend/config.ini")
     url = config.get("saltstack","url")
     user = config.get("saltstack","user")
     passwd = config.get("saltstack","pass")
@@ -36,14 +35,14 @@ def saltstack():
     result_api={'url':url,'user':user,'passwd':passwd,'device':device}
     return result_api
 def wirte_track_mark(num):
-    f = open("/data1/web/CMDB/app/backend/track_num.conf",'w')
+    f = open("/CMDB/app/backend/track_num.conf",'w')
     try:
         f.write(num)
     finally:
         f.close()
     return "ok"
 def read_track_mark():
-    f = open("/data1/web/CMDB/app/backend/track_num.conf")
+    f = open("/CMDB/app/backend/track_num.conf")
     try:
 	num = f.read()
     finally:
