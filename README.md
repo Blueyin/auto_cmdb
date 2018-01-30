@@ -16,7 +16,7 @@ pip install celery
 
 1、在服务端建立/web目录。把项目拷贝到目录下。
 
-2、在服务起端执行脚本:(在/web/CMDB/app/backend目录存放)
+2、在服务起端执行脚本:(在/CMDB/app/backend目录存放)
 
 install_server.sh
 3、在cp 客户端脚本到client执行，注意执行格式：
@@ -38,7 +38,7 @@ salt '*' saltutil.sync_all
 7、建立mysql 数据库并且授权账号登录：
 
 create database cmdb default charset=utf8;
-8、修改配置文件config.ini(所在目录：/data1/web/CMDB/app/backend/):
+8、修改配置文件config.ini(所在目录：/CMDB/app/backend/):
 
 [db]
 db_host = 127.0.0.1  
