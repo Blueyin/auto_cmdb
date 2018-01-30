@@ -80,7 +80,7 @@ def get_job_time(jobName):
     	return last,last_date
 
 def import_sql(ret):
-    conn = MySQLdb.connect(host="192.168.0.194",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+    conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
     cursor = conn.cursor()
     sql_del = '''DELETE FROM `app_jenkins_return`'''
     set_names = '''set names utf8'''
@@ -99,7 +99,7 @@ def import_sql(ret):
 	conn.close()
 
 def import_history_sql(ret):
-    conn = MySQLdb.connect(host="192.168.0.194",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+    conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
     cursor = conn.cursor()
     sql_del = '''DELETE FROM `app_job_history_return`'''
     set_names = '''set names utf8'''
@@ -117,7 +117,7 @@ def import_history_sql(ret):
         conn.close()
 
 def import_release_sql(ret):
-    conn = MySQLdb.connect(host="192.168.0.194",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+    conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
     cursor = conn.cursor()
     sql_del = '''DELETE FROM `app_job_release_return`'''
     set_names = '''set names utf8'''
