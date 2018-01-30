@@ -1,8 +1,10 @@
 运维平台搭建过程
 
-运维平台基于saltstack的接口调用来实现，操作管理，用户管理，代码发布，和任务编排等系统，有监控管理系统，监控告警，模板管理和维护周期。
+#此版本基于linuxhub/lmanager的基础上做的开发
 
-安装步骤（基本环境，需要安装好（Django、south、MySQLdb、celery、模块）安装过程报错就继续安装模块即可）：
+运维平台基于saltstack的接口调用来实现，操作管理，用户管理，权限管理，jenkins代码发布，作业管理，任务编排等系统，有监控管理系统，监控告警，模板管理和维护周期。
+
+安装步骤（基本环境，需要安装好（Django、south、MySQLdb、celery模块）安装过程报错就继续安装模块即可）：
 
 pip install 'django==1.8.1'
 
@@ -16,7 +18,7 @@ pip install celery
 
 1、在服务端建立/web目录。把项目拷贝到目录下。
 
-2、在服务起端执行脚本:(在/web/CMDB/app/backend目录存放)
+2、在服务起端执行脚本:(在/CMDB/app/backend目录存放)
 
 install_server.sh
 3、在cp 客户端脚本到client执行，注意执行格式：
@@ -38,7 +40,7 @@ salt '*' saltutil.sync_all
 7、建立mysql 数据库并且授权账号登录：
 
 create database cmdb default charset=utf8;
-8、修改配置文件config.ini(所在目录：/data1/web/CMDB/app/backend/):
+8、修改配置文件config.ini(所在目录：/CMDB/app/backend/):
 
 [db]
 db_host = 127.0.0.1  
@@ -46,12 +48,14 @@ db_port = 3306
 db_user = test
 db_pass = test_1234
 db_name = cmdb
+
 [saltstack]
 url = https://192.168.0.2:8888
 user = test
 pass = test_1234
 [network]
 device = eth0
+
 9、数据库创建：
 
 python manage.py syncdb

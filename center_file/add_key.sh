@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#Author: yanf
-#Description: 
 
 
 member=($1)
