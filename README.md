@@ -5,7 +5,7 @@ ___
 
 **开发环境**
 
-    centos 6.5 django 1.8 python 2.7
+    centos 6.5 django 1.8.18 python 2.7
     
 ######此版本基于linuxhub/lmanager的基础上做的开发
 
@@ -86,6 +86,6 @@ ___
     nohup python salt_event_to_mysql.py &   **#事件监听返回日志
     
     nohup ./manage.py runserver 0.0.0.0:8888 &
-    nohup python manage.py celery worker -A CMDB -l info
-    nohup python manage.py celery beat --loglevel=info
+    nohup python manage.py celery worker -A CMDB -l info &
+    nohup python manage.py celery beat --loglevel=info &
 
