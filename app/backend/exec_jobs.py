@@ -77,6 +77,30 @@ def insert_operate_sql(jid,ret):
         conn.close()
     return True
 
+
+def select_salt_return(jid):
+    conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+    cursor = conn.cursor()
+    set_names = '''set names utf8'''
+    sql = "select * from app_salt_return where jid='%s'" % (jid)
+    n = 1
+    while True:
+        cursor.execute(set_names)
+        cursor.execute(sql)
+        sel = cursor.fetchall()
+        if sel:
+            conn.close()
+            break
+        else:
+            n += 1
+            time.sleep(1)
+        if n >= 10:
+            return False
+    if sel[0][5] == '1' or sel[0][5] == 'success' or sel[0][5] == 'True':
+        return True
+    else:
+        return False
+
 def select_schedule_sql(jid,time_now,action):
     import datetime
     conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
@@ -96,7 +120,7 @@ def select_schedule_sql(jid,time_now,action):
 	   time.sleep(1)
     conn.close()
     ret = sel[0][6]
-    if sel[0][5] == '1' or sel[0][5] == 'success':
+    if sel[0][5] == '1' or sel[0][5] == 'success' or sel[0][5] == 'True':
         end_time = ret.split('_stamp": "')[1].split('"')[0]
         end_time = utc2local(end_time)
         sum_time = end_time - datetime.datetime.strptime(time_now, '%Y-%m-%d %H:%M:%S')
@@ -141,7 +165,7 @@ def select_schedule_sql(jid,time_now,action):
     if action == 'operate':
         insert_operate_sql(jid,results)
     elif action == 'schedule':
-        update_operate_sql(jid,results) 
+        update_operate_sql(jid,results)
     return results,status
 
 
