@@ -209,7 +209,19 @@ def pc2pcs(pc):
 	n +=1
     return pcs
 
+def isline(hostname):
+    from app.backend.exec_jobs import select_salt_return
+    line_id = local.cmd_async(hostname,'test.ping','','pcre')
+    islines = select_salt_return(line_id)
+    if not islines:
+	return False
+    else:
+	return True
+
 def file_output(editor,job_name,script,hostName,params):
+    lines = isline(hostName)
+    if lines is False:
+	return False
     if script == 'shell':
 	job_name = job_name.decode('utf-8').encode('utf-8')
         output = open('/data1/web/CMDB/exec_file/{0}.sh'.format(job_name),'w')
@@ -223,6 +235,7 @@ def file_output(editor,job_name,script,hostName,params):
 	local.cmd(hostName,'cp.get_file',['salt://exec_file/{0}'.format(job_names),'/tmp/exec_job/{0}'.format(job_names),'base',True],'','pcre')
 	job_names = job_names.replace(" ","\ ")
 	job_id = local.cmd_async(hostName,'cmd.run',['bash  -xe /tmp/exec_job/{0}'.format(job_names)],'pcre')
+	command_names = 'bash  -xe /tmp/exec_job/{0}'.format(job_names)
     else:
         output = open('/data1/web/CMDB/exec_file/{0}.py'.format(job_name),'w')
         output.write(editor)
@@ -231,7 +244,8 @@ def file_output(editor,job_name,script,hostName,params):
 	local.cmd(hostName,'cp.get_file',['salt://exec_file/{0}'.format(job_names),'/tmp/exec_job/{0}'.format(job_names),'base',True],'','pcre')
 	job_names = job_names.replace(" ","\ ")
 	job_id = local.cmd_async(hostName,'cmd.run',['python /tmp/exec_job/{0}'.format(job_names)],'pcre')
-    return job_id
+	command_names = 'bash  -xe /tmp/exec_job/{0}'.format(job_names)
+    return job_id,command_names
 
 @task
 def work_running(jobName,hostName,script,action,editor,params):
@@ -262,7 +276,11 @@ def work_running(jobName,hostName,script,action,editor,params):
 	end_time = ""
 	results.extend([job_name,'blues','手动',time_now,end_time,'unknow','执行开始',job_id,action,result,command])
 	import_goto_running(results,job_id)
-	job_id = file_output(editor,job_name,script,hostName,params)
+	job_id,command_names = file_output(editor,job_name,script,hostName,params)
+	if job_id is False:
+	    statu = '执行失败'
+	    update_goto_running(job_name,job_id,statu)
+	    return False
 
     results = []
     results.extend([job_name,'blues','手动',time_now,end_time,'unknow','执行中',job_id])
@@ -326,7 +344,7 @@ def schedule_for_operate_running(jobName,hostName,script,action,editor,scheduleN
         import_schedule_running(results,job_id)
 	from app.views import select_params
 	params = select_params(schedule_id)
-	job_id = file_output(editor,job_name,script,hostName,params)
+	job_id,command_names = file_output(editor,job_name,script,hostName,params)
     results = []
     results.extend([job_name,'blues','手动',time_now,'end time','unknow','执行中',job_id])
     status = "执行中"
