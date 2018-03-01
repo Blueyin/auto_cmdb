@@ -527,15 +527,7 @@ div.FixedHeader_Cloned table {
                         </li>	
                         <li>
                             <a href="/job"><i class="fa fa-github fa-fw"></i>代码发布</a>
-                        </li>	
-<!--                         <li>
-                            <a href="/chart"><i class="fa fa-bar-chart-o fa-fw"></i> 图表<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="morris.html">Morris.js Charts</a>
-                                </li>
-                            </ul>
-                        </li> -->
+                        </li>
 
                     </ul>
                 </div>
@@ -548,14 +540,21 @@ div.FixedHeader_Cloned table {
         <div id="page-wrapper">
             <div class="container-fluid">
 <form class="form-inline"  method="post">
-  <div class="form-group">
+  <div class="form-group" style='margin-top:20px;'>
     <label for="exampleInputName2">组名</label>
     <input type="text" class="form-control" id="nameInput" value="{{group_name}}">
+    <label for="exampleInputEmail2" style='margin-left:20px;'>IP</label>
   </div>
-  <div class="form-group">
-    <label for="exampleInputEmail2">IP</label>
-    <input type="text" class="form-control"  id="hostInput">
-  </div>
+  <div class="form-group" style='margin-top:20px;'>
+        <!--input type="text" class="form-control"  id="hostInput"-->
+        <div class="col-sm-10" style='width:200px;'>
+            <select id="host_ip"  class="form-control" multiple="multiple" style='margin-top:20px;'>
+                {%for all_ip in all_host%}
+                <option>{{all_ip.hostname}}</option>
+                {%endfor%}
+            </select>
+        </div>
+   </div>
   <button type="button" class="btn btn-default" onclick="addgroup_host(this);">添加</button>
 </form>
 <div class="row">
@@ -740,11 +739,18 @@ div.FixedHeader_Cloned table {
 
 <script type="text/javascript">
 
+
+    $(window).on('load', function () {
+        $('#host_ip').selectpicker({
+            'selectedText': 'cat'
+        });
+    });
+
 function addgroup_host(ele){ 
      var id=$(ele).attr("id");
   $.ajax({  
-    url:"/addgroup_host", 
-    data:{nameInput:$('#nameInput').val(),hostInput:$('#hostInput').val()},
+    url:"/addgroup_host",
+    data:{nameInput:$('#nameInput').val(),hostInput:JSON.stringify($('#host_ip').selectpicker('val'))},
     success:function(data){
      if (data=='ok') {
      $('#tipModal').find('.modal-body').html('添加成功').end().modal('show')

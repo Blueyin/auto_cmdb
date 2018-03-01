@@ -526,16 +526,17 @@ def group_manage_delete(request,group_name=None,ip=None):
 def addgroup_host(request):
     if request.method == 'GET':
 	group = request.GET.get('nameInput')
-	ip = request.GET.get('hostInput')
-	all_group = Group.objects.filter(name=group)
-        all_host = HostList.objects.filter(ip=ip)
-	for group in all_group:
-            group_id= group.id
-        for host in all_host:
-            host_id= host.id
-        h = HostList.objects.get(id=host_id)
-        g = Group.objects.get(id=group_id)
-	h.group.add(g)
+	ips = json.loads(request.GET.get('hostInput'))
+	for ip in ips:
+	    all_group = Group.objects.filter(name=group)
+	    all_host = HostList.objects.filter(hostname=ip)
+	    for group in all_group:
+		group_id= group.id
+	    for host in all_host:
+		host_id= host.id
+	    h = HostList.objects.get(id=host_id)
+	    g = Group.objects.get(id=group_id)
+	    h.group.add(g)
 	return HttpResponse('ok')
 
 def monitor(request):
