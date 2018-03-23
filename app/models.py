@@ -97,7 +97,7 @@ class salt_return(models.Model):
     fun = models.CharField(max_length=50)
     jid = models.CharField(max_length=255)
     result = models.TextField()
-    host = models.CharField(max_length=255)
+    host = models.IPAddressField(max_length=255)
     success = models.CharField(max_length=10)
     full_ret = models.TextField()
 
@@ -214,7 +214,7 @@ class job_release_return(models.Model):
 
 class zabbix_maintenance(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'维护名称')
-    host = models.CharField(max_length=1024, verbose_name=u'维护主机')
+    host = models.IPAddressField(max_length=1024, verbose_name=u'维护主机')
     maintenanceid = models.CharField(max_length=100, verbose_name=u'维护ID')
     active_since = models.CharField(max_length=100, verbose_name=u'屏蔽开始时间')
     active_till = models.CharField(max_length=100, verbose_name=u'屏蔽结束时间')
@@ -228,7 +228,7 @@ class zabbix_maintenance(models.Model):
 
 class zabbix_trigle(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'资源名称')
-    host = models.CharField(max_length=100, verbose_name=u'维护主机')
+    host = models.IPAddressField(max_length=100, verbose_name=u'维护主机')
     description = models.CharField(max_length=1024, verbose_name=u'事件描述')
     priority = models.CharField(max_length=100, verbose_name=u'告警级别')
     lasttime = models.CharField(max_length=100, verbose_name=u'发生时间')
@@ -244,7 +244,7 @@ class operate_list(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'操作名称')
     label = models.CharField(max_length=100, verbose_name=u'标签')
     kinds = models.CharField(max_length=100, verbose_name=u'所属分类')
-    host = models.CharField(max_length=100, verbose_name=u'执行主机')
+    host = models.IPAddressField(max_length=100, verbose_name=u'执行主机')
     editor = models.TextField(verbose_name=u'脚本内容')
     script = models.CharField(max_length=20, verbose_name=u'脚本语言')
     action = models.CharField(max_length=100, verbose_name=u'执行命令')
@@ -311,7 +311,7 @@ class schedule_for_operate(models.Model):
     job_name = models.CharField(max_length=100, verbose_name=u'任务名称')
     label = models.CharField(max_length=100, verbose_name=u'标签')
     kinds = models.CharField(max_length=100, verbose_name=u'所属分类')
-    host = models.CharField(max_length=100, verbose_name=u'执行主机')
+    host = models.IPAddressField(max_length=100, verbose_name=u'执行主机')
     editor = models.TextField(verbose_name=u'脚本内容')
     script = models.CharField(max_length=20, verbose_name=u'脚本语言')
     action = models.CharField(max_length=100, verbose_name=u'执行命令')
