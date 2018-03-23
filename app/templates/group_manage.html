@@ -583,7 +583,7 @@ div.FixedHeader_Cloned table {
 	<td id = "host">{{ip}}</td>
 	<td>
 
-<span class="label label-primary hover deleteidc"><a href="/group_manage/group_manage_delete/?group_name={{group_name}}&ip={{ ip }}" style="color:white"  role="button">删除</a></span>
+<span class="label label-primary hover deleteidc"><a href="/pc/group_manage/group_manage_delete/?group_name={{group_name}}&ip={{ ip }}" style="color:white"  role="button">删除</a></span>
 <!--
 <span class="label label-primary hover" data-id='6'>
 	<a href="/mac/check_host/?idc_name={{all_idc.idc_name}}" style='color:white'>查看</a>
@@ -654,9 +654,9 @@ div.FixedHeader_Cloned table {
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/static/js/metisMenu.min.js"></script>
-        <script src="http://ironsummitmedia.github.io/startbootstrap-sb-admin-2/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+        <script src="/static/js/jquery.dataTables.min.js"></script>
 
-    <script src='http://ironsummitmedia.github.io/startbootstrap-sb-admin-2/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js'></script>
+    <script src='/static/dataTables.bootstrap.min.js'></script>
     <!-- Custom Theme JavaScript --> 
     <script src="/static/js/sb-admin-2.js"></script>
     <script>
@@ -749,7 +749,7 @@ div.FixedHeader_Cloned table {
 function addgroup_host(ele){ 
      var id=$(ele).attr("id");
   $.ajax({  
-    url:"/addgroup_host",
+    url:"/pc/addgroup_host",
     data:{nameInput:$('#nameInput').val(),hostInput:JSON.stringify($('#host_ip').selectpicker('val'))},
     success:function(data){
      if (data=='ok') {
@@ -766,7 +766,7 @@ function addgroup_host(ele){
 function deletegroup_host(ele){ 
      var id=$(ele).attr("id");
   $.ajax({  
-    url:"/deletegroup_host", 
+    url:"/pc/deletegroup_host",
     data:{groupname:$('#groupname').val(),host:$('#host').val()},
     success:function(data){
      if (data=='ok') {
