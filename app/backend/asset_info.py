@@ -2,26 +2,29 @@
 from saltapi import SaltAPI
 import threading
 import ConfigParser
+
 asset_info = []
-def get_server_asset_info(tgt,url,user,passwd,device):
+
+
+def get_server_asset_info(tgt, url, user, passwd, device):
     '''
     Salt API得到资产信息，进行格式化输出
     '''
     cf = ConfigParser.ConfigParser()
     cf.read("config.ini")
-    global asset_info 
+    global asset_info
     info = []
-    sapi = SaltAPI(url=url,username=user,password=passwd)
-    ret = sapi.remote_noarg_execution(tgt,'grains.items')
-    #manufacturer = ret['manufacturer']
-    #info.append(manufacturer)
+    sapi = SaltAPI(url=url, username=user, password=passwd)
+    ret = sapi.remote_noarg_execution(tgt, 'grains.items')
+    # manufacturer = ret['manufacturer']
+    # info.append(manufacturer)
     info.append('111')
-    #productname = ret['productname']
-    #info.append(productname)  
-    info.append('222')  
-    #serialnumber = ret['serialnumber']
-    #info.append(serialnumber)
-    #info.append('333')
+    # productname = ret['productname']
+    # info.append(productname)
+    info.append('222')
+    # serialnumber = ret['serialnumber']
+    # info.append(serialnumber)
+    # info.append('333')
     serialnumber = ret['server_id']
     info.append(serialnumber)
     cpu_model = ret['cpu_model']
@@ -32,7 +35,7 @@ def get_server_asset_info(tgt,url,user,passwd,device):
     info.append(num_gpus)
     mem_total = ret['mem']
     info.append(mem_total)
-    disk  = ret['disk']
+    disk = ret['disk']
     info.append(disk)
     id = ret['id']
     info.append(id)
@@ -43,5 +46,3 @@ def get_server_asset_info(tgt,url,user,passwd,device):
     asset_info = []
     asset_info.append(info)
     return asset_info
-if __name__ == '__main__':
-    print get_server_asset_info('192.168.0.195','https://192.168.0.194:8888','blue','blue1234','eth1')
