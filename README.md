@@ -35,7 +35,7 @@ ___
     
 **3、在cp 客户端脚本到client执行，注意执行格式：**
 
-    bash -x install_client.sh 127.0.0.1 10.105.45.127    
+    bash -x install_client.sh 127.0.0.1 127.0.0.1     
     
     client表示客户端主机ID，建议跟主机的Hostname一致，后面的IP表示server端的IP地址,我这里用的本机。
     
@@ -63,8 +63,12 @@ ___
     
     salt '*' saltutil.sync_all
     
-**6、在server端安装salt-api，因为大部分操作都是调用api,可以参考博客（因为需要手工指定证书，所以没有做成脚本的形式）：**
+**6、在server端安装salt-api：**
 
+    pip install salt-api
+    参考文档构建证书：
+    https://jaminzhang.github.io/saltstack/SaltStack-API-Config-and-Usage/
+    
 **7、建立mysql 数据库并且授权账号登录：**
 
     create database cmdb default charset=utf8;
@@ -83,9 +87,9 @@ ___
     db_name = cmdb
     
     [saltstack]
-    url = https://10.105.45.127:8888
-    user = salt
-    pass = salt_1234
+    url = https://127.0.0.1:8888
+    user = saltapi
+    pass = saltapi
     [network]
     device = eth0
 
