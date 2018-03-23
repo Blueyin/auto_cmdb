@@ -68,6 +68,10 @@ ___
 **7、建立mysql 数据库并且授权账号登录：**
 
     create database cmdb default charset=utf8;
+    select host,user,password from mysql.user;
+    create user test identified by 'test_1234';
+    grant all privileges on *.* to 'test'@'localhost'identified by 'test_1234' with grant option;
+    flush privileges ;
     
 **8、修改配置文件config.ini(所在目录：/app/backend/):**
 
