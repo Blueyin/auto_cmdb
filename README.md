@@ -105,7 +105,7 @@ ___
     nohup python salt_event_to_mysql.py &
     nohup python salt_event_to_mysql.py &   **#事件监听返回日志
     
-    nohup ./manage.py runserver 0.0.0.0:8888 &
+    nohup ./manage.py runserver 0.0.0.0:80 &
     nohup python manage.py celery worker -A CMDB -l info &
     nohup python manage.py celery beat --loglevel=info &
 
