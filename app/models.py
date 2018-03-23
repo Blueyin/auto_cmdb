@@ -184,7 +184,7 @@ class job_history_return(models.Model):
     job_endtime = models.CharField(max_length=100, verbose_name=u'包安装时间')
     job_index = models.CharField(max_length=100, verbose_name=u'发布版本')
     pc_index = models.CharField(max_length=100, verbose_name=u'服务器版本')
-    job_history = models.TextField(max_length=18000, verbose_name=u'返回信息')
+    job_history = models.TextField( verbose_name=u'返回信息')
 
     def __unicode__(self):
 	return self.job_name
@@ -202,7 +202,7 @@ class job_release_return(models.Model):
     job_index = models.CharField(max_length=100, verbose_name=u'发布版本')
     pc_index = models.CharField(max_length=100, verbose_name=u'服务器版本')
     job_status = models.CharField(max_length=100, verbose_name=u'执行状态')
-    job_history = models.TextField(max_length=18000, verbose_name=u'返回信息')
+    job_history = models.TextField(verbose_name=u'返回信息')
     result_log = models.CharField(max_length=1024, verbose_name=u'执行日志')
 
     def __unicode__(self):
