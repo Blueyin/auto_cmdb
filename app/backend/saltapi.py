@@ -119,6 +119,7 @@ class SaltAPI(object):
 
 def main():
     sapi = SaltAPI(url='https://127.0.0.1:8888', username='saltapi', password='saltapi')
+    print sapi.remote_noarg_execution('127.0.0.1', 'grains.items')
 
 
 if __name__ == '__main__':
