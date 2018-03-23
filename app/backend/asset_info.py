@@ -33,7 +33,7 @@ def get_server_asset_info(tgt, url, user, passwd, device):
     info.append(num_cpus)
     num_gpus = int(ret['num_gpus'])
     info.append(num_gpus)
-    mem_total = ret['mem']
+    mem_total = ret['mem_total']
     info.append(mem_total)
     disk = ret['disk']
     info.append(disk)
