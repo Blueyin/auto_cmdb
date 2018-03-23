@@ -852,7 +852,7 @@ function macadd(ele){
    if($('#name').val()&&$('#ip').val()&&$('#idc_jg').val()&&$('#idc_name').val()&&$('#service').val()){
      var id=$(ele).attr("id");
   $.ajax({  
-    url:"/addmac", 
+    url:"/pc/addmac",
     data:{name:$('#name').val(),ip:$('#ip').val(),idc_jg:$('#idc_jg').val(),idc_name:$('#idc_name').val(),service:$('#service').val()},
     success:function(data){
      if (data=='ok') {
