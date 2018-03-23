@@ -119,6 +119,13 @@ def idc_delete(request, id=None):
 	Idc.objects.filter(id=id).delete()
 	return HttpResponseRedirect('/idc/')
 
+@login_required
+def idc_manage(request, id=None):
+    if request.method == 'GET':
+	idc_name = request.GET.get('idc_name')
+	all_ip = HostList.objects.all()
+	all_host = HostList.objects.filter(idc_name=idc_name)
+	return render_to_response("idc_manage.html", locals())
 
 @login_required
 @permission_required('polls.can_vote', login_url='/operate/operatelist')
