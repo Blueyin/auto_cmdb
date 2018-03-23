@@ -95,6 +95,7 @@ ___
     python manage.py migrate app
     python manage.py makemigrations
     
+    
 **10、安装成功启动登录：**
 
     启动步骤：
