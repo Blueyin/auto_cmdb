@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 import ConfigParser
+
 cf = ConfigParser.ConfigParser()
 cf.read("/data/auto_cmdb/app/backend/config.ini")
+
+
 def dbconfig():
     db_host = cf.get("db", "db_host")
     db_port = cf.get("db", "db_port")
@@ -10,6 +13,8 @@ def dbconfig():
     db_name = cf.get("db", "db_name")
     db = {"host": db_host, "port": db_port, "user": db_user, "pass": db_pass, "name": db_name}
     return db
+
+
 if __name__ == "__main__":
-    print dbconfig()
-data/
+    db_test = dbconfig()
+    print db_test
