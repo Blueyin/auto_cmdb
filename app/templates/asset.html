@@ -491,10 +491,10 @@ div.FixedHeader_Cloned table {
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu"> 
-			<li>
+			            <li>
                             <a href="/index"><i class="fa fa-dashboard fa-fw"></i> 控制台</a>
                         </li>
-			<li>
+			            <li>
                             <a href="/idc"><i class="fa fa-tasks fa-fw"></i>服务器管理</a>
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a href="/pc/idc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机房管理</a></li>
@@ -534,14 +534,6 @@ div.FixedHeader_Cloned table {
                                 <li><a href="/monitor/maintenance">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;维护周期</a></li>
                             </ul>
                         </li>
-<!--                         <li>
-                            <a href="/chart"><i class="fa fa-bar-chart-o fa-fw"></i> 图表<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="morris.html">Morris.js Charts</a>
-                                </li>
-                            </ul>
-                        </li> -->
 
                     </ul>
                 </div>
@@ -555,11 +547,6 @@ div.FixedHeader_Cloned table {
 <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default" style='margin-top:20px;'>
-<!--                         <div class="panel-heading">
-                           idc信息
-                            <button class='btn btn-default' id='addIdc'>添加idc</button>
-                        </div> -->
-                        <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
                                <p>IT资产审计:</p> 
@@ -574,37 +561,33 @@ div.FixedHeader_Cloned table {
                                             <th>CPU型号</th>
                                             <th>CPU线程</th>
                                             <th>CPU物理核心数</th>
-					    <th>内存大小</th>
-					    <th>硬盘大小</th>
-					    <th>主机名</th>
-					    <th>IP地址</th>
-					    <th>操作系统</th>
-					    <th>操作</th>
+                                            <th>内存大小</th>
+                                            <th>硬盘大小</th>
+                                            <th>主机名</th>
+                                            <th>IP地址</th>
+                                            <th>操作系统</th>
+                                            <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-        {%for all_asset in all_asset%}
-<tr>
-	<td>{{all_asset.manufacturer}}</td>
-	<td>{{all_asset.productname}}</td>
-	<td>{{all_asset.service_tag}}</td>
-	<td>{{all_asset.cpu_model}}</td>
-	<td>{{all_asset.cpu_nums}}</td>
-	<td>{{all_asset.cpu_groups }}</td>
-	<td>{{all_asset.mem}}</td>
-	<td>{{all_asset.disk}}</td>
-	<td>{{all_asset.hostname}}</td>
-	<td>{{all_asset.ip}}</td>
-	<td>{{all_asset.os}}</td>
-	<td>
-<span class="label label-primary hover deletemac"><a href="/asset/asset_delete/?id={{all_asset.id}}" style="color:white"  role="button">删除</a></span>
-	</td>
-</tr>
-        {%endfor%}
+                                    {%for all_asset in all_asset%}
+                                        <tr>
+                                            <td>{{all_asset.manufacturer}}</td>
+                                            <td>{{all_asset.productname}}</td>
+                                            <td>{{all_asset.service_tag}}</td>
+                                            <td>{{all_asset.cpu_model}}</td>
+                                            <td>{{all_asset.cpu_nums}}</td>
+                                            <td>{{all_asset.cpu_groups }}</td>
+                                            <td>{{all_asset.mem}}</td>
+                                            <td>{{all_asset.disk}}</td>
+                                            <td>{{all_asset.hostname}}</td>
+                                            <td>{{all_asset.ip}}</td>
+                                            <td>{{all_asset.os}}</td>
+                                            <td><span class="label label-primary hover deletemac"><a href="/asset/asset_delete/?id={{all_asset.id}}" style="color:white"  role="button">删除</a></span></td>
+                                        </tr>
+                                    {%endfor%}
 
-
-
-            </tbody>
+                                </tbody>
                                 </table>
           
                             </div>
