@@ -5,7 +5,7 @@ ___
 
 **开发环境**
 
-    centos 6.5 django 1.8.18 python 2.7
+    centos 7.4 django 1.8.18 python 2.7.5
     
 ######此版本基于linuxhub/lmanager的基础上做的开发
 
@@ -23,6 +23,8 @@ ___
     pip install django-celery
     
     pip install celery
+    
+    pip install jenkins
 
 **1、在服务端data目录。把项目拷贝到当前目录下，命名auto-cmdb。**
 
