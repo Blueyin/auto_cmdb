@@ -2,6 +2,7 @@
 from settings_config import dbconfig
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 import djcelery
+from datetime import timedelta
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
@@ -13,7 +14,7 @@ USE_I18N = True
 USE_L10N = False
 USE_TZ = True
 
-mysql = dbconfig() 
+mysql = dbconfig()
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -21,7 +22,7 @@ djcelery.setup_loader()
 BROKER_URL = 'amqp://test:test1234@localhost:5672//'
 BROKER_POOL_LIMIT = 0
 CELERY_ENABLE_UTC = True
-CELERY_RESULT_BACKEND= 'amqp'
+CELERY_RESULT_BACKEND = 'amqp'
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -31,22 +32,23 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': mysql["name"],                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': mysql["user"],
-        'PASSWORD': mysql["pass"],
-        'HOST': mysql["host"],                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': mysql["port"],                      # Set to empty string for default.
+	'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+	'NAME': mysql["name"],  # Or path to database file if using sqlite3.
+	# The following settings are not used with sqlite3:
+	'USER': mysql["user"],
+	'PASSWORD': mysql["pass"],
+	'HOST': mysql["host"],  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+	'PORT': mysql["port"],  # Set to empty string for default.
 	'CONN_MAX_AGE': 600,
     }
 }
-from datetime import timedelta
+
+
 CELERYBEAT_SCHEDULE = {
     'add-every-10-minutes': {
-        'task': 'app.backend.tasks.get_zabbix_trigle',
-        'schedule': timedelta(minutes=10),
-        'args': ('')
+	'task': 'app.backend.tasks.get_zabbix_trigle',
+	'schedule': timedelta(minutes=10),
+	'args': ('')
     }
 }
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -57,24 +59,24 @@ ALLOWED_HOSTS = ['*']
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-#TIME_ZONE = 'America/Chicago'
+# TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-#LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-#USE_I18N = True
+# USE_I18N = True
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
-#USE_L10N = True
+# USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-#USE_TZ = True
+# USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
@@ -108,7 +110,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -118,22 +120,22 @@ SECRET_KEY = '@bii&_qx_efj4vy@8qms$%hxq^p=s6&y=kbab42r)8uxtg(x-*'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-    #('django.template.loaders.cached.Loader', (
+    #     'django.template.loaders.eggs.Loader',
+    # ('django.template.loaders.cached.Loader', (
     #    'django.template.loaders.filesystem.Loader',
     #    'django.template.loaders.app_directories.Loader',
-    #)),
+    # )),
 )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-   # 'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+
 )
 
 ROOT_URLCONF = 'CMDB.urls'
@@ -176,22 +178,22 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
+	'require_debug_false': {
+	    '()': 'django.utils.log.RequireDebugFalse'
+	}
     },
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+	'mail_admins': {
+	    'level': 'ERROR',
+	    'filters': ['require_debug_false'],
+	    'class': 'django.utils.log.AdminEmailHandler'
+	}
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
+	'django.request': {
+	    'handlers': ['mail_admins'],
+	    'level': 'ERROR',
+	    'propagate': True,
+	},
     }
 }

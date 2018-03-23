@@ -25,7 +25,7 @@ ___
     
     pip install celery
     
-    pip install jenkins
+    pip install python-jenkins
 
 **1、在服务端data目录。把项目拷贝到当前目录下，命名auto-cmdb。**
 
