@@ -19,7 +19,7 @@ import MySQLdb
 import  ConfigParser,sys,json,os,time,pickle
 import time
 
-db =  MySQLdb.connect(host="192.168.0.2",user="blue",passwd="blue_1234",db="cmdb",charset="utf8")
+db =  MySQLdb.connect(host="127.0.0.1",user="blue",passwd="blue_1234",db="cmdb",charset="utf8")
 db.autocommit(True)
 job_enable = 1
 work_enable = 1

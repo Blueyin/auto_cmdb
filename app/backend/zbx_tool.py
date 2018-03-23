@@ -15,7 +15,7 @@ sys.setdefaultencoding('utf-8')
 
 class zabbix_api:
     def __init__(self):
-        self.url = 'http://192.168.0.2:81/api_jsonrpc.php'
+        self.url = 'http://127.0.0.1:81/api_jsonrpc.php'
 	self.prioritytostr = {'0':'ok','1':'信息','2':'警告','3':'一般严重','4':'严重','5':'灾难'} #告警级别
         self.header = {"Content-Type":"application/json"}
 
@@ -817,7 +817,7 @@ class zabbix_api:
             return response
 
     def  import_sql(self, ret):
-        conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+        conn = MySQLdb.connect(host="127.0.0.1",user="test",passwd="test_1234",db="cmdb",charset="utf8")
         cursor = conn.cursor()
         sql_del = '''DELETE FROM `app_zabbix_maintenance`'''
         set_names = '''set names utf8'''
@@ -837,7 +837,7 @@ class zabbix_api:
 
 
     def  import_sql_trigle(self, ret):
-        conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+        conn = MySQLdb.connect(host="127.0.0.1",user="test",passwd="test_1234",db="cmdb",charset="utf8")
         cursor = conn.cursor()
         sql_del = '''DELETE FROM `app_zabbix_trigle`'''
         set_names = '''set names utf8'''

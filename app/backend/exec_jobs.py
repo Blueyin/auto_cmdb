@@ -7,10 +7,10 @@ import time
 from datetime import datetime
 import sys  
 import MySQLdb  
-conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+conn = MySQLdb.connect(host="127.0.0.1",user="test",passwd="test_1234",db="cmdb",charset="utf8")
 
 def import_release_sql(ret,jid):
-    conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+    conn = MySQLdb.connect(host="127.0.0.1",user="test",passwd="test_1234",db="cmdb",charset="utf8")
     cursor = conn.cursor()
     #if jid !='':
 	#print ret
@@ -32,7 +32,7 @@ def import_release_sql(ret,jid):
     return True
 
 def update_release_sql(name,jid,status):
-    conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+    conn = MySQLdb.connect(host="127.0.0.1",user="test",passwd="test_1234",db="cmdb",charset="utf8")
     cursor = conn.cursor()
     set_names = '''set names utf8'''
     sql = "UPDATE app_running_list SET  jid='%s',status='%s' WHERE name='%s'" % (jid,status,name)
@@ -47,7 +47,7 @@ def update_release_sql(name,jid,status):
     return True
 
 def update_operate_sql(jid,ret):
-    conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+    conn = MySQLdb.connect(host="127.0.0.1",user="test",passwd="test_1234",db="cmdb",charset="utf8")
     cursor = conn.cursor()
     set_names = '''set names utf8'''
     sql = "UPDATE app_schedule_running_list SET  status='%s',end_time='%s',sum_time='%s',result='%s',command='%s' WHERE jid='%s'" % (ret[0],ret[1],ret[2],ret[3],ret[4],jid)
@@ -63,7 +63,7 @@ def update_operate_sql(jid,ret):
 
 
 def insert_operate_sql(jid,ret):
-    conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+    conn = MySQLdb.connect(host="127.0.0.1",user="test",passwd="test_1234",db="cmdb",charset="utf8")
     cursor = conn.cursor()
     set_names = '''set names utf8'''
     sql = "UPDATE app_running_list SET  status='%s',end_time='%s',sum_time='%s',result='%s',command='%s' WHERE jid='%s'" % (ret[0],ret[1],ret[2],ret[3],ret[4],jid)
@@ -79,7 +79,7 @@ def insert_operate_sql(jid,ret):
 
 
 def select_salt_return(jid):
-    conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+    conn = MySQLdb.connect(host="127.0.0.1",user="test",passwd="test_1234",db="cmdb",charset="utf8")
     cursor = conn.cursor()
     set_names = '''set names utf8'''
     sql = "select * from app_salt_return where jid='%s'" % (jid)
@@ -103,7 +103,7 @@ def select_salt_return(jid):
 
 def select_schedule_sql(jid,time_now,action):
     import datetime
-    conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+    conn = MySQLdb.connect(host="127.0.0.1",user="test",passwd="test_1234",db="cmdb",charset="utf8")
     cursor = conn.cursor()
     set_names = '''set names utf8'''
     sql = "select * from app_salt_return where jid='%s'" % (jid)
@@ -170,7 +170,7 @@ def select_schedule_sql(jid,time_now,action):
 
 
 def import_schedule_sql(ret,jid):
-    conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+    conn = MySQLdb.connect(host="127.0.0.1",user="test",passwd="test_1234",db="cmdb",charset="utf8")
     cursor = conn.cursor()
     set_names = '''set names utf8'''
     sql = '''INSERT INTO `app_schedule_running_list`
@@ -204,7 +204,7 @@ def utc2local(utc_st):
 
 def insert_schedule_sql(scheduleName,results,time_now):
     import datetime
-    conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+    conn = MySQLdb.connect(host="127.0.0.1",user="test",passwd="test_1234",db="cmdb",charset="utf8")
     cursor = conn.cursor()
     sum_time = results[1] - datetime.datetime.strptime(time_now, '%Y-%m-%d %H:%M:%S')
     set_names = '''set names utf8'''
@@ -221,7 +221,7 @@ def insert_schedule_sql(scheduleName,results,time_now):
 
 
 def update_schedule_sql(name,jid,status):
-    conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+    conn = MySQLdb.connect(host="127.0.0.1",user="test",passwd="test_1234",db="cmdb",charset="utf8")
     cursor = conn.cursor()
     set_names = '''set names utf8'''
     sql = "UPDATE app_schedule_running_list SET  jid='%s',status='%s' WHERE name='%s'" % (jid,status,name)

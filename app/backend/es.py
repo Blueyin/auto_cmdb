@@ -15,7 +15,7 @@ class ES_SEARCH(object):
         self.end = end
         self.samples = samples
     def es_search(self):
-        es = Elasticsearch([{'host':'192.168.0.3','port':9200}])
+        es = Elasticsearch([{'host':'127.0.0.1','port':9200}])
         if not self.start:
             self.start = "2017-09-10T17:45:54.736"
         if not self.end:
@@ -156,7 +156,7 @@ class ES_SEARCH(object):
         for i in range(len(reta)):
             values = (reta[i], retb[i], retc[i], retd[i], rete[i])
             result_data.append(values)
-        conn = MySQLdb.connect(host="192.168.0.2", user="test", passwd="test_1234", db="cmdb", charset="utf8")
+        conn = MySQLdb.connect(host="127.0.0.1", user="test", passwd="test_1234", db="cmdb", charset="utf8")
         cursor = conn.cursor()
 	sql_del = '''DELETE FROM `app_search_return`'''
         sql = '''INSERT INTO `app_search_return`

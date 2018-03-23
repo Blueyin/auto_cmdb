@@ -114,7 +114,7 @@ class SaltAPI(object):
         return jid
 
 def main():
-    sapi = SaltAPI(url='https://192.168.0.2:8888',username='test',password='test1234')
+    sapi = SaltAPI(url='https://127.0.0.1:8888',username='test',password='test1234')
 
 if __name__ == '__main__':
     main()

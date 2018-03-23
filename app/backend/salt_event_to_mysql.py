@@ -13,7 +13,7 @@ import MySQLdb
 __opts__ = salt.config.client_config('/etc/salt/master')
 
 # Create MySQL connect
-conn = MySQLdb.connect(host="192.168.0.2",user="test",passwd="test_1234",db="cmdb",charset="utf8")
+conn = MySQLdb.connect(host="127.0.0.1",user="test",passwd="test_1234",db="cmdb",charset="utf8")
 cursor = conn.cursor()
 
 # Listen Salt Master Event System
