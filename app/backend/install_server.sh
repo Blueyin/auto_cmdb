@@ -30,4 +30,5 @@ pip install MySQL-python
 pip install django-celery
 pip install celery
 pip install jenkins
+pip install suit
 
