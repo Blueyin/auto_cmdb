@@ -28,7 +28,7 @@ work_enable = 1
 
 def saltstack():
     config = ConfigParser.ConfigParser()
-    config.read("/auto_cmdb/app/backend/config.ini")
+    config.read("/data/auto_cmdb/app/backend/config.ini")
     url = config.get("saltstack", "url")
     user = config.get("saltstack", "user")
     passwd = config.get("saltstack", "pass")
@@ -38,7 +38,7 @@ def saltstack():
 
 
 def wirte_track_mark(num):
-    f = open("/auto_cmdb/app/backend/track_num.conf", 'w')
+    f = open("/data/auto_cmdb/app/backend/track_num.conf", 'w')
     try:
 	f.write(num)
     finally:
@@ -47,7 +47,7 @@ def wirte_track_mark(num):
 
 
 def read_track_mark():
-    f = open("/auto_cmdb/app/backend/track_num.conf")
+    f = open("/data/auto_cmdb/app/backend/track_num.conf")
     try:
 	num = f.read()
     finally:
