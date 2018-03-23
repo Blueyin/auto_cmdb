@@ -562,7 +562,7 @@ div.FixedHeader_Cloned table {
 
 {%for all_host in all_host %}
 <div style="width:50%">
-<form class="form-horizontal"  method="post" action="/macresult/">
+<form class="form-horizontal"  method="post" action="/pc/macresult/">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">编号</label>
     <div class="col-sm-10">
@@ -607,7 +607,7 @@ div.FixedHeader_Cloned table {
 {%endfor%}
       </div>
       <div class="modal-footer" style="width:50%">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><a href="/mac/" >取消</a></button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><a href="/pc/mac/" >取消</a></button>
         <button type="button" class="btn btn-primary"  onclick="macresult(this);" >确认</button>
    </div>    
   </div>
@@ -740,7 +740,7 @@ div.FixedHeader_Cloned table {
 	})
 	    	$(document).on('click','.deletemac',function(){
 	    		var id = $(this).data('id')
-	    		$.get('/deletemac?id='+id,function(res){
+	    		$.get('/pc/deletemac?id='+id,function(res){
 	    			if (res == 'ok') {
 	    				location.reload()
 	    			};
@@ -758,7 +758,7 @@ div.FixedHeader_Cloned table {
 		})
 		if (is_val) {
 
-		$.get('/addmac',$('#addmacForm').serialize(),function(data){
+		$.get('/pc/addmac',$('#addmacForm').serialize(),function(data){
 			if (data=='ok') {
 				$('#tipModal').find('.modal-body').html('添加成功').end().modal('show')
 			};
@@ -774,7 +774,7 @@ function macresult(ele){
    if($('#bianhao').val()&&$('#name').val()&&$('#ip').val()&&$('#idc_jg').val()&&$('#idc_name').val()&&$('#service').val()){
      var id=$(ele).attr("id");
   $.ajax({  
-    url:"/macresult", 
+    url:"/pc/macresult",
     data:{id:$('#bianhao').val(),name:$('#name').val(),ip:$('#ip').val(),idc_jg:$('#idc_jg').val(),idc_name:$('#idc_name').val(),service:$('#service').val()},
     success:function(data){
      if (data=='ok') {
