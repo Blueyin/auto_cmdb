@@ -585,8 +585,8 @@ div.FixedHeader_Cloned table {
 	<td id="jifang">{{all_host.idc_name}}</td>
 	<td id="server">{{all_host.application}}</td>
 	<td>
-<span class="label label-primary hover deletemac"><a href="/mac/mac_edit/?id={{ all_host.id }}" style="color:white"  role="button">编辑</a></span>
-<span class="label label-primary hover deletemac"><a href="/mac/mac_delete/?id={{ all_host.id }}" style="color:white"  role="button">删除</a></span>
+<span class="label label-primary hover "><a href="/pc/mac/mac_edit/?id={{ all_host.id }}" style="color:white"  role="button">编辑</a></span>
+<span class="label label-primary hover deletemac"><a href="/pc/mac/mac_delete/?id={{ all_host.id }}" style="color:white"  role="button">删除</a></span>
 	</td>
 </tr>
      {%endfor%}
@@ -611,7 +611,7 @@ div.FixedHeader_Cloned table {
         <h4 class="modal-title">添加机器</h4>
       </div>
       <div class="modal-body">
-<form class="form-horizontal"  method="post" action="/addmac/">
+<form class="form-horizontal"  method="post" action="/pc/addmac/">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">机器名</label>
     <div class="col-sm-10">
@@ -836,34 +836,6 @@ div.FixedHeader_Cloned table {
 	$('#addmacBtn').click(function(){
 		$('#addmacModal').modal('show')
 	})
-	    	$(document).on('click','.deletemac',function(){
-	    		var id = $(this).data('id')
-	    		$.get('/deletemac?id='+id,function(res){
-	    			if (res == 'ok') {
-	    				location.reload()
-	    			};
-	    		})
-	    	})
-	$('#confirmAddmacBtn').click(function(){
-		var is_val = true
-		$('#addmacForm').find('input').each(function(i,v){
-			if (!$(v).val()) {
-				$(v).after('<span class="text-danger">必填字段</span>')
-				is_val = false
-			}else{
-				$(v).next().remove()
-			}
-		})
-		if (is_val) {
-
-		$.get('/addmac',$('#addmacForm').serialize(),function(data){
-			if (data=='ok') {
-				$('#tipModal').find('.modal-body').html('添加成功').end().modal('show')
-			};
-		})
-		};
-
-	})
 
 </script>
 
@@ -871,36 +843,9 @@ div.FixedHeader_Cloned table {
         $('#addzabbixBtn').click(function(){
                 $('#addzabbixModal').modal('show')
         })
-                $(document).on('click','.deletemac',function(){
-                        var id = $(this).data('id')
-                        $.get('/deletemac?id='+id,function(res){
-                                if (res == 'ok') {
-                                        location.reload()
-                                };
-                        })
-                })
-        $('#confirmAddmacBtn').click(function(){
-                var is_val = true
-                $('#addmacForm').find('input').each(function(i,v){
-                        if (!$(v).val()) {
-                                $(v).after('<span class="text-danger">必填字段</span>')
-                                is_val = false
-                        }else{
-                                $(v).next().remove()
-                        }
-                })
-                if (is_val) {
-
-                $.get('/addmac',$('#addmacForm').serialize(),function(data){
-                        if (data=='ok') {
-                                $('#tipModal').find('.modal-body').html('添加成功').end().modal('show')
-                        };
-                })
-                };
-
-        })
 
 </script>
+
 <script type="text/javascript">
 
 function macadd(ele){
