@@ -547,7 +547,7 @@ div.FixedHeader_Cloned table {
             <div class="container-fluid">
           
 
-<form class="form-inline"  method="post" action="/group_result/">
+<form class="form-inline"  method="post" action="/pc/group_result/">
   <div class="form-group">
     <label for="exampleInputName2">组名</label>
     <input type="text" class="form-control" id="g_name">
@@ -576,9 +576,9 @@ div.FixedHeader_Cloned table {
 <tr>
 	<td>{{all_group.name}}</td>
 	<td>
-<span class="label label-primary hover deleteidc"><a href="/group/group_delete/?id={{ all_group.id }}" style="color:white"  role="button">删除</a></span>
+<span class="label label-primary hover "><a href="/pc/group/group_delete/?id={{ all_group.id }}" style="color:white"  role="button">删除</a></span>
 <span class="label label-primary hover" data-id='6'>
-	<a href="/group_manage/?id={{all_group.id}}" style='color:white'>管理分组</a>
+	<a href="/pc/group_manage/?id={{all_group.id}}" style='color:white'>管理分组</a>
 </span>
 
 	</td>
@@ -735,7 +735,7 @@ function grouprun(ele){
    if($('#g_name').val()){
      var id=$(ele).attr("id");
   $.ajax({  
-    url:"/group_result", 
+    url:"/pc/group_result",
     data:{g_name:$('#g_name').val()},
     success:function(data){
      if (data=='ok') {
