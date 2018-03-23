@@ -22,17 +22,17 @@ def chuser(user):
     return newuser
 def replace(dev,user):
     if dev == 'dev':
-        file1 = '/data1/web/CMDB/user/devadd.sls'
-        file2 = '/data1/web/CMDB/user/devdel.sls'
-        old = commands.getoutput("cat /data1/web/CMDB/user/devadd.sls|grep set|awk -F '[' {'print $2'}|awk -F ']' {'print $1'}")
+        file1 = '/data/auto_cmdb/user/devadd.sls'
+        file2 = '/data/auto_cmdb/user/devdel.sls'
+        old = commands.getoutput("cat /data/auto_cmdb/user/devadd.sls|grep set|awk -F '[' {'print $2'}|awk -F ']' {'print $1'}")
     elif dev == 'yw':
-        file1 = '/data1/web/CMDB/user/ywadd.sls'
-        file2 = '/data1/web/CMDB/user/ywdel.sls'
-        old = commands.getoutput("cat /data1/web/CMDB/user/ywadd.sls|grep set|awk -F '[' {'print $2'}|awk -F ']' {'print $1'}")
+        file1 = '/data/auto_cmdb/user/ywadd.sls'
+        file2 = '/data/auto_cmdb/user/ywdel.sls'
+        old = commands.getoutput("cat /data/auto_cmdb/user/ywadd.sls|grep set|awk -F '[' {'print $2'}|awk -F ']' {'print $1'}")
     else:
-        file1 = '/data1/web/CMDB/user/bigdataadd.sls'
-        file2 = '/data1/web/CMDB/user/bigdatadel.sls'
-        old = commands.getoutput("cat /data1/web/CMDB/user/bigdataadd.sls|grep set|awk -F '[' {'print $2'}|awk -F ']' {'print $1'}")
+        file1 = '/data/auto_cmdb/user/bigdataadd.sls'
+        file2 = '/data/auto_cmdb/user/bigdatadel.sls'
+        old = commands.getoutput("cat /data/auto_cmdb/user/bigdataadd.sls|grep set|awk -F '[' {'print $2'}|awk -F ']' {'print $1'}")
     new=user
     print old,new
     new="'{0}'".format(new)

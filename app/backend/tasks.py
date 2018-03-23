@@ -224,7 +224,7 @@ def file_output(editor,job_name,script,hostName,params):
 	return False
     if script == 'shell':
 	job_name = job_name.decode('utf-8').encode('utf-8')
-        output = open('/data1/web/CMDB/exec_file/{0}.sh'.format(job_name),'w')
+        output = open('/data/auto_cmdb/exec_file/{0}.sh'.format(job_name),'w')
 	param_output = ""
 	for param in params:
 	    param_output = "{0}={1}".format(param['param_name'],param['param_value'])
@@ -237,7 +237,7 @@ def file_output(editor,job_name,script,hostName,params):
 	job_id = local.cmd_async(hostName,'cmd.run',['bash  -xe /tmp/exec_job/{0}'.format(job_names)],'pcre')
 	command_names = 'bash  -xe /tmp/exec_job/{0}'.format(job_names)
     else:
-        output = open('/data1/web/CMDB/exec_file/{0}.py'.format(job_name),'w')
+        output = open('/data/auto_cmdb/exec_file/{0}.py'.format(job_name),'w')
         output.write(editor)
         output.close()
 	job_names = job_name + '.py'

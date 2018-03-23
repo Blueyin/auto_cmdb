@@ -1,6 +1,7 @@
 # encoding=utf-8
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render_to_response, render
 from django.template import Template, loader, RequestContext
 from django.contrib.auth.decorators import login_required
@@ -61,6 +62,7 @@ def date_result(data):
 
 
 @login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def index(request):
     total_idc = Idc.objects.aggregate(Count('idc_name'))
     idc_num = total_idc["idc_name__count"]
@@ -89,6 +91,13 @@ def authin(request):
 
 
 @login_required
+def loginout(request):
+    logout(request)
+    return render_to_response("login.html", locals())
+
+
+@login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def idc(request):
     all_idc = Idc.objects.all()
     return render_to_response("idc.html", locals())
@@ -112,6 +121,7 @@ def idc_delete(request, id=None):
 
 
 @login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def author(request):
     all_host = HostList.objects.all()
     all_author = Author.objects.all()
@@ -138,6 +148,7 @@ def upauthor(request):
 	all_result = Author.objects.filter(name=name)
 	user = all_result.values()[0]['user']
 	passwd = request.GET['kpasswd']
+	# kip change ip
 	old_ip = request.GET['kip']
 	old_ip = json.loads(json.dumps(old_ip))
 	main_ip = old_ip.split('[')[1].split(']')[0]
@@ -166,10 +177,10 @@ def author_delete(request, id=None):
 	all_result = Author.objects.filter(id=id)
 	user = all_result.values()[0]['user']
 	group = all_result.values()[0]['group']
-	if group == 'dev':
-	    devdel(user, group)
-	elif group == 'bigdata':
-	    bigdatadel(user, group)
+	# if group == 'dev':
+	#    devdel(user,group)
+	# elif group == 'bigdata':
+	#    bigdatadel(user,group)
 	Author.objects.filter(id=id).delete()
 	return HttpResponseRedirect('/author/')
 
@@ -183,6 +194,7 @@ def author_edit(request, id=None):
 	return render_to_response("author_edit.html", locals())
 
 
+@login_required
 def author_result(request):
     if request.method == 'GET':
 	id = request.GET['id']
@@ -223,11 +235,33 @@ def key_result(request):
 		return HttpResponse(data)
 
 
+@login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
+def operation_control(request):
+    all_host = HostList.objects.all()
+    all_idc = Idc.objects.all()
+    return render_to_response("operation_control.html", locals())
+
+
+@login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
+def add(request):
+    if request.method == 'GET':
+	host = request.GET['host']
+	idc_bh = request.GET['idc_jg']
+	service = request.GET['service']
+	status = request.GET['status']
+	serv_add = ServerList(host=host, bianhao=idc_bh, service=service, status=status)
+	serv_add.save()
+	return HttpResponse('ok')
+
+
 class UploadForm(forms.Form):
     headImg = forms.FileField()
 
 
 @login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def mac(request):
     all_host = HostList.objects.all()
     all_idc = Idc.objects.all()
@@ -252,7 +286,7 @@ def mac_delete(request, id=None):
     if request.method == 'GET':
 	id = request.GET.get('id')
 	HostList.objects.filter(id=id).delete()
-	return HttpResponseRedirect('/mac/')
+	return HttpResponseRedirect('/pc/mac/')
 
 
 @login_required
@@ -288,6 +322,7 @@ class UploadForm(forms.Form):
 
 
 @login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def file(request):
     #    if request.method == 'POST':
     all_group = Group.objects.all()
@@ -311,7 +346,6 @@ def file_result(request):
 	file = request.GET.get('file')
 	dir = request.GET.get('dir')
 	GroupList = Group.objects.all()
-	#	file_result = []
 	list_coun = []
 	project_success = []
 	project_fail = []
@@ -341,6 +375,7 @@ def file_result(request):
 
 
 @login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def command(request):
     if request.method == 'GET':
 	all_host = HostList.objects.all()
@@ -358,7 +393,6 @@ def command_result(request):
 	    key_id = host.hostname
 	    sapi = SaltAPI(url=ret_api["url"], username=ret_api["user"], password=ret_api["passwd"])
 	    ret = sapi.remote_execution(key_id, 'cmd.run', command)
-	    # print salt_return.objects.all()
 	    time.sleep(0.8)
 	    all_result = salt_return.objects.all().order_by("-id")[0:1]
 	    for ret in all_result:
@@ -372,18 +406,19 @@ def command_result(request):
 
 
 @login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def command_group(request):
     if request.method == 'GET':
 	all_group = Group.objects.all()
     return render_to_response("command_group.html", locals())
 
 
+@login_required
 def command_group_result(request):
     if request.method == 'GET':
 	ret_api = saltstack()
 	g_name = request.GET.get('g_name')
 	command = request.GET.get('command')
-	selectIps = []
 	list_coun = []
 	project_success = []
 	project_fail = []
@@ -401,7 +436,6 @@ def command_group_result(request):
 		num = len(list_coun)
 		wirte_track_mark(str(num))
 		all_result = salt_return.objects.all()[0:num]
-		# print all_result
 		for projects in all_result:
 		    project = projects.success
 		    if project == '1' or project == 'True':
@@ -413,7 +447,6 @@ def command_group_result(request):
 		result = {'success': success_num, 'fail': fail_num}
 		return HttpResponse(json.dumps(result))
 
-
 @login_required
 def check_result(request):
     num = int(read_track_mark())
@@ -422,11 +455,13 @@ def check_result(request):
 
 
 @login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def job(request):
     return render_to_response("job.html")
 
 
 @login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def bd_jenkins(request):
     global job_enable
     job_enable = 1
@@ -440,6 +475,7 @@ def update_job(request):
     return HttpResponse('ok')
 
 
+@login_required
 def job_history(request):
     if request.method == 'GET':
 	try:
@@ -456,6 +492,8 @@ def job_history(request):
 	    return render_to_response("job_history.html", locals())
 
 
+@login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def job_history_result(request):
     if request.method == 'GET':
 	id = request.GET.get('id')
@@ -463,6 +501,8 @@ def job_history_result(request):
 	return render_to_response("job_history_result.html", locals())
 
 
+@login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def job_release(request):
     if request.method == 'GET':
 	try:
@@ -487,6 +527,7 @@ def job_release(request):
 	    return render_to_response("job_release.html", locals())
 
 
+@login_required
 def job_release_result(request):
     if request.method == 'GET':
 	id = request.GET.get('id')
@@ -495,12 +536,14 @@ def job_release_result(request):
 
 
 @login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def asset(request):
     all_asset = ServerAsset.objects.all()
     return render_to_response("asset.html", locals())
 
 
 @login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def asset_auto(request):
     all_host = HostList.objects.all()
     return render_to_response("asset_auto.html", locals())
@@ -549,6 +592,7 @@ def asset_delete(request, id=None):
 
 
 @login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def group(request):
     all_group = Group.objects.all()
     return render_to_response("group.html", locals())
@@ -617,10 +661,14 @@ def addgroup_host(request):
 	return HttpResponse('ok')
 
 
+@login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def monitor(request):
     return render_to_response("maintenance.html", locals())
 
 
+@login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def monior_dash(request):
     total_host = HostList.objects.aggregate(Count('hostname'))
     host_num = total_host["hostname__count"]
@@ -636,6 +684,8 @@ def monior_dash(request):
     return render_to_response("monitor_dash.html", locals())
 
 
+@login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def monitor_urgent_alarm(request):
     all_trigles = zabbix_trigle.objects.all()
     all_trigles = all_trigles.exclude(priority='警告')
@@ -644,23 +694,30 @@ def monitor_urgent_alarm(request):
     return render_to_response("monitor_urgent_alarm.html", locals())
 
 
+@login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def monitor_alarm(request):
     all_trigles = zabbix_trigle.objects.all()
     return render_to_response("monitor_alarm.html", locals())
 
 
+@login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def monitor_template(request):
     all_tem = zabbix_tem_return.objects.all()
     all_host = zabbix_host_return.objects.all()
     return render_to_response("monitor_template.html", locals())
 
 
+@login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def monitor_maintenance(request):
     all_results = zabbix_maintenance.objects.all()
     all_host = zabbix_host_return.objects.filter(template="Template OS Linux")
     return render_to_response("monitor_maintenance.html", locals())
 
 
+@login_required
 def update_bdhost(request):
     zabbix = zabbix_api()
     res = zabbix.template_get()
@@ -672,6 +729,7 @@ def update_bdhost(request):
 	return HttpResponse('error')
 
 
+@login_required
 def update_template_right(request):
     zabbix = zabbix_api()
     if request.method == 'GET':
@@ -702,6 +760,7 @@ def update_template_right(request):
 	return render_to_response("monitor_template.html", locals())
 
 
+@login_required
 def update_template_left(request):
     zabbix = zabbix_api()
     if request.method == 'GET':
@@ -735,6 +794,7 @@ def update_template_left(request):
 	return render_to_response("monitor_template.html", locals())
 
 
+@login_required
 def addmaintenance(request):
     zabbix = zabbix_api()
     if request.method == 'GET':
@@ -756,6 +816,7 @@ def addmaintenance(request):
 	    return HttpResponse('error')
 
 
+@login_required
 def maintenance_delete(request):
     zabbix = zabbix_api()
     if request.method == 'GET':
@@ -770,6 +831,7 @@ def maintenance_delete(request):
 	    return HttpResponse('error')
 
 
+@login_required
 def searchtem(request):
     if request.method == 'GET':
 	data_list = []
@@ -786,6 +848,7 @@ def searchtem(request):
     return HttpResponse(json.dumps({"data_list": data_list, "hosts_list": hosts_list}))
 
 
+@login_required
 def getdata(request):
     if request.method == 'GET':
 	data_list = []
@@ -796,7 +859,7 @@ def getdata(request):
 	if item != 'None':
 	    data_list = [item, start, stop, host]
 	    print data_list
-	    f = open("/data/auto_cmdb/app/backend/monitor_data.txt", 'w')
+	    f = open("/data1/web/yw-cmdb/app/backend/monitor_data.txt", 'w')
 	    try:
 		for i in data_list:
 		    f.write(i)
@@ -820,22 +883,68 @@ def startsearch(request):
 	samples = request.GET.get("samples")
 	search = ES_SEARCH(start, end, samples)
 	data = search.es_search()
-	# print data
 	if data is 'OK':
 	    return HttpResponse('ok')
 	else:
 	    return HttpResponse('error')
 
 
+@login_required
+@permission_required('polls.can_vote', login_url='/operate/operatelist')
 def monitor_result(request):
     return render_to_response('monitor_result.html')
+
+
+@login_required
+def monitor_data(request):
+    data = []
+    f = open("/data1/web/yw-cmdb/app/backend/monitor_data.txt")
+    try:
+	lines = f.readlines()
+    finally:
+	f.close()
+    for line in lines:
+	data.append(line.strip())
+    item = data[0]
+    start = data[1]
+    stop = data[2]
+    host = data[3]
+    if start == '' and stop == '':
+	starttime = int(time.time())
+	c.execute(
+	    "SELECT `time`,`%s` FROM `statusinfo` where `hostname` = '%s' and `time` < %d" % (item, host, starttime))
+	ones = [[i[0] * 1000 + 28800000, i[1]] for i in c.fetchall()]
+	return HttpResponse(json.dumps(ones))
+    if start == '' and stop != '':
+	stop = stop.strip()
+	timeStamp = date_result(stop)
+	c.execute(
+	    "SELECT `time`,`%s` FROM `statusinfo` where `hostname` = '%s' and `time` < %d" % (item, host, timeStamp))
+	ones = [[i[0] * 1000 + 28800000, i[1]] for i in c.fetchall()]
+	return HttpResponse(json.dumps(ones))
+    if start != '' and stop == '':
+	timeStamp = date_result(data)
+	c.execute(
+	    "SELECT `time`,`%s` FROM `statusinfo` where `hostname` = '%s' and `time` > %d" % (item, host, timeStamp))
+	ones = [[i[0] * 1000 + 28800000, i[1]] for i in c.fetchall()]
+	return HttpResponse(json.dumps(ones))
+    if start != '' and stop != '':
+	start_timeStamp = date_result(start)
+	stop_timeStamp = date_result(stop)
+	c.execute("SELECT `time`,`%s` FROM `statusinfo` where `hostname` = '%s' and `time` > %d and `time` < %d" % (
+	    item, host, start_timeStamp, stop_timeStamp))
+	ones = [[i[0] * 1000 + 28800000, i[1]] for i in c.fetchall()]
+	return HttpResponse(json.dumps(ones))
 
 
 @login_required
 def operatelist(request):
     global work_enable
     work_enable = 1
-    all_result = operate_list.objects.all()
+    if request.user.username == "sandbox":
+	all_result = operate_list.objects.filter(label="test")
+    else:
+	all_result = operate_list.objects.all()
     return render_to_response("operatelist.html", locals())
 
 
@@ -860,7 +969,10 @@ def operate_delete(request):
     if request.method == 'GET':
 	id = request.GET.get('id')
 	operate_list.objects.filter(id=id).delete()
-	all_result = operate_list.objects.all()
+	if request.user.username == "sandbox":
+	    all_result = operate_list.objects.filter(label="test")
+	else:
+	    all_result = operate_list.objects.all()
 	return render_to_response("operatelist.html", locals())
 
 
@@ -874,7 +986,6 @@ def operate_param_delete(request):
 	all_host = HostList.objects.all()
 	all_param = operate_params.objects.filter(job_name=all_result.values()[0]['name'])
 	return HttpResponseRedirect("/operate/operatelist/operateedit?id={0}".format(new_id), locals())
-	# return render_to_response("edit_operate.html",locals())
 
 
 @login_required
@@ -897,7 +1008,6 @@ def update_action(request):
 	change_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 	params = request.GET['params']
 	params = json.loads(params)
-	# var_params=list()
 	for i in params:
 	    var_list = i['param_id']
 	    var_name = i['param_name']
@@ -914,14 +1024,12 @@ def update_action(request):
 		    params_add.save()
 		else:
 		    all_param = operate_params.objects.filter(id=operate_id)
-		    # print var_list,var_name,=var_value,var_text,name
 		    try:
 			params_update = all_param.update(param_id=var_list, param_name=var_name, param_value=var_value,
 							 param_text=var_text, job_id=id)
 			params_update.save()
 		    except:
 			continue
-		    # print "param get exception"
 		    else:
 			continue
 	try:
@@ -931,7 +1039,6 @@ def update_action(request):
 	    action_update.save()
 	except:
 	    log_update = "get exception"
-	    # print "get exception"
 	finally:
 	    return HttpResponse('ok')
 
@@ -978,7 +1085,6 @@ def update_operate(request):
 			params_update.save()
 		    except:
 			continue
-			# print "param get exception"
 		    else:
 			continue
 
@@ -1009,13 +1115,11 @@ def addaction(request):
 	host = []
 	for i in hosts.split(','):
 	    host.append(i.split('"')[1])
-	# print name,label,kinds,host,editor,action
 	status = "可用"
 	change_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 	action_add = operate_list(name=name, label=label, kinds=kinds, host=host, change_time=change_time,
 				  script=script, editor=editor, status=status, action=action)
 	action_add.save()
-
 	operate_id = operate_list.objects.filter(name=name).values()[0]['id']
 	params = request.GET['params']
 	params = json.loads(params)
@@ -1036,7 +1140,10 @@ def addaction(request):
 def schedule(request):
     global work_enable
     work_enable = 1
-    all_result = schedule_list.objects.all()
+    if request.user.username == "sandbox":
+	all_result = schedule_list.objects.filter(user="sandbox")
+    else:
+	all_result = schedule_list.objects.all()
     return render_to_response("schedule.html", locals())
 
 
@@ -1078,7 +1185,6 @@ def schedule_operate_delete(request):
 	all_operate = operate_list.objects.all()
 	all_result_operate = schedule_for_operate.objects.filter(schedule_id=newid)
 	return HttpResponseRedirect("/operate/schedule/scheduleedit?id={0}".format(newid), locals())
-	# return render_to_response("edit_schedule.html",locals())
 
 
 @login_required
@@ -1119,6 +1225,7 @@ def update_schedule(request):
 		job_id = i['job_id']
 		list_id = i['list_id']
 		job_name = i['job_name']
+		user = i['action_name']
 		try:
 		    operate_id = i['operate_id']
 		except:
@@ -1135,7 +1242,7 @@ def update_schedule(request):
 			change_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 			status = all_result.values()[0]['status']
 			schedule_for_operate_add = schedule_for_operate(name=job_id, list_id=list_id, job_name=job_name,
-									label=label, kinds=kinds, host=host,
+									user=user, label=label, kinds=kinds, host=host,
 									change_time=change_time, script=script,
 									editor=editor, status=status, action=action,
 									schedule_id=id)
@@ -1145,7 +1252,7 @@ def update_schedule(request):
 			all_result = schedule_for_operate.objects.filter(id=operate_id)
 			try:
 			    schedule_for_operate_update = schedule_for_operate.objects.filter(id=operate_id).update(
-				name=job_id, list_id=list_id, job_name=job_name)
+				name=job_id, list_id=list_id, job_name=job_name, user=user)
 			    schedule_for_operate_update.save()
 			except:
 			    log_schedule_operate = "get exception"
@@ -1204,7 +1311,6 @@ def addfun(request):
 		job_name = i['job_name']
 		all_result = operate_list.objects.filter(name=job_id)
 		print job_id
-		# all_result.values()[0]
 		label = all_result.values()[0]['label']
 		kinds = all_result.values()[0]['kinds']
 		host = all_result.values()[0]['host']
@@ -1225,26 +1331,28 @@ def addfun(request):
 		    print "get exception"
 		else:
 		    var_params = add_param(schedule_id, list_id)
-		    # print var_params
 	    return HttpResponse('ok')
 
 
 @login_required
 def work(request):
-    all_result = running_list.objects.all()
+    if request.user.username == "sandbox":
+	all_result = running_list.objects.filter(user="sandbox")
+    else:
+	all_result = running_list.objects.all()
     return render_to_response("work.html", locals())
 
 
 @login_required
 def work_operate(request):
-    import datetime
     global work_enable
     if request.method == 'GET':
 	id = request.GET['id']
+	user = request.user.username
 	all_result = operate_list.objects.filter(id=id)
 	all_work = all_result.values()[0]
 	all_param = operate_params.objects.filter(job_id=id).values()
-	work_id = work_running.delay(all_work['name'], all_work['host'], all_work['script'], all_work['action'],
+	work_id = work_running.delay(all_work['name'], user, all_work['host'], all_work['script'], all_work['action'],
 				     all_work['editor'], all_param)
     return HttpResponseRedirect("/operate/work", locals())
 
@@ -1273,8 +1381,6 @@ def work_schedule_operate(request):
 	jobname = all_result.values()[0]['name']
 	schedule_name = all_result.values()[0]['scheduleName']
 	schedule_id = running_list.objects.filter(name=schedule_name).values()[0]['jid']
-	# schedule_id = all_result.values()[0]['jid']
-	# all_job = schedule_for_operate.objects.filter(schedule_id = schedule_id)[:1]
 	jobname = jobname.split('_')[0]
 	all_job = schedule_for_operate.objects.filter(schedule_id=schedule_id)
 	all_job = all_job.filter(name=jobname)[:1]
@@ -1285,7 +1391,6 @@ def work_schedule_operate(request):
 def work_schedule(request):
     global work_enable
     if work_enable == 1:
-	# if request.method == 'GET':
 	id = request.GET['id']
 	all_result = schedule_list.objects.filter(id=id)
 	all_schedule = all_result.values()[0]
@@ -1304,14 +1409,14 @@ def work_schedule(request):
 def work_result(request):
     if request.method == 'GET':
 	id = request.GET['id']
-	all_result = running_list.objects.filter(id=id)
-	schedulename = all_result.values()[0]['name'].split('_')[0]
-	all_schedule = schedule_list.objects.filter(name=schedulename)
-	schedule_id = all_schedule.values()[0]['id']
-	all_job = schedule_for_operate.objects.filter(schedule_id=schedule_id)
-	all_job_result = schedule_running_list.objects.filter(scheduleName=all_result.values()[0]['name'])
-	schedulename = all_result.values()[0]['name']
-	return render_to_response("schedule_work.html", locals())
+    all_result = running_list.objects.filter(id=id)
+    schedulename = all_result.values()[0]['name'].split('_')[0]
+    all_schedule = schedule_list.objects.filter(name=schedulename)
+    schedule_id = all_schedule.values()[0]['id']
+    all_job = schedule_for_operate.objects.filter(schedule_id=schedule_id)
+    all_job_result = schedule_running_list.objects.filter(scheduleName=all_result.values()[0]['name'])
+    schedulename = all_result.values()[0]['name']
+    return render_to_response("schedule_work.html", locals())
 
 
 def select_params(schedule_id):
