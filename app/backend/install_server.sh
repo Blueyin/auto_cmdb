@@ -20,6 +20,9 @@ tar -xzvf pip-1.5.4.tar.gz
 cd pip-1.5.4
 python setup.py install
 
+####主键
+yum install gcc libffi-devel python-devel openssl-devel -y
+
 #####安装pip插件
 pip install 'django==1.8.1'
 pip install south

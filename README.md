@@ -5,15 +5,16 @@ ___
 
 **开发环境**
 
-    centos 7.4 django 1.8.18 python 2.7.5
+    centos 7.4 django 1.8.18 python 2.7.5 Mysql 5.6
     
 ######此版本基于linuxhub/lmanager的基础上做的开发
-
 
     运维平台基于saltstack的接口调用来实现，操作管理，用户管理，权限管理，jenkins代码发布，作业管理，任务编排等系统，有监控管理系统，监控告警，模板管理和维护周期。
     
     安装步骤（基本环境，需要安装好（Django、South、MySQLdb、Celery、Jenkins模块）安装过程报错就继续安装模块即可）：
 
+    Mysql这边自己装一下，可以参考https://segmentfault.com/a/1190000005066501
+ 
     pip install 'django==1.8.1'
     
     pip install south
@@ -34,16 +35,28 @@ ___
     
 **3、在cp 客户端脚本到client执行，注意执行格式：**
 
-    ./install_client.sh client 127.0.0.1     
+    bash -x install_client.sh 127.0.0.1 10.105.45.127    
     
     client表示客户端主机ID，建议跟主机的Hostname一致，后面的IP表示server端的IP地址,我这里用的本机。
     
 **4、安装完成之后；测试是否成功：在server执行命令如下：**
-
-    [root@master backend]# salt '*' test.ping
-        client:
-            True
-        
+    
+    [root@VM_45_127_centos backend]# salt-key -L
+    Accepted Keys:
+    Denied Keys:
+    Unaccepted Keys:
+    127.0.0.1
+    Rejected Keys:
+    [root@VM_45_127_centos backend]# salt-key -A
+    The following keys are going to be accepted:
+    Unaccepted Keys:
+    127.0.0.1
+    Proceed? [n/Y] y
+    Key for minion 127.0.0.1 accepted.
+    
+    [root@VM_45_127_centos backend]# salt '*' test.ping
+    127.0.0.1:
+        True
     有这个返回值说明成功安装了，saltstack的master 和客户端。
     
 **5、在server端同步client脚本到client：**
@@ -56,7 +69,7 @@ ___
 
     create database cmdb default charset=utf8;
     
-**8、修改配置文件config.ini(所在目录：/CMDB/app/backend/):**
+**8、修改配置文件config.ini(所在目录：/app/backend/):**
 
     [db]
     db_host = 127.0.0.1  
@@ -66,9 +79,9 @@ ___
     db_name = cmdb
     
     [saltstack]
-    url = https://192.168.0.2:8888
-    user = test
-    pass = test_1234
+    url = https://10.105.45.127:8888
+    user = salt
+    pass = salt_1234
     [network]
     device = eth0
 
