@@ -12,9 +12,9 @@ ___
 
     运维平台基于saltstack的接口调用来实现，操作管理，用户管理，权限管理，jenkins代码发布，作业管理，任务编排等系统，有监控管理系统，监控告警，模板管理和维护周期。
     
-    安装步骤（基本环境，需要安装好（Django、south、MySQLdb、celery模块）安装过程报错就继续安装模块即可）：
+    安装步骤（基本环境，需要安装好（Django、South、MySQLdb、Celery、Jenkins模块）安装过程报错就继续安装模块即可）：
 
-    pip install 'django==1.8.1'`
+    pip install 'django==1.8.1'
     
     pip install south
     
@@ -24,17 +24,17 @@ ___
     
     pip install celery
 
-**1、在服务端建立/web目录。把项目拷贝到目录下。**
+**1、在服务端data目录。把项目拷贝到当前目录下，命名auto-cmdb。**
 
-**2、在服务起端执行脚本:(在/CMDB/app/backend目录存放)**
+**2、在服务起端执行脚本:(在/auto_cmdb/app/backend目录存放)**
 
     install_server.sh
     
 **3、在cp 客户端脚本到client执行，注意执行格式：**
 
-    ./install_client.sh client 192.168.63.239     
+    ./install_client.sh client 127.0.0.1     
     
-    client表示客户端主机ID，建议跟主机的Hostname一致，，后面的IP表示server端的IP地址。
+    client表示客户端主机ID，建议跟主机的Hostname一致，后面的IP表示server端的IP地址,我这里用的本机。
     
 **4、安装完成之后；测试是否成功：在server执行命令如下：**
 
