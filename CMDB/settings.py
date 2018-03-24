@@ -19,7 +19,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 djcelery.setup_loader()
-BROKER_URL = 'amqp://test:test1234@localhost:5672//'
+BROKER_URL = 'amqp://test:test_1234@localhost:5672//'
 BROKER_POOL_LIMIT = 0
 CELERY_ENABLE_UTC = True
 CELERY_RESULT_BACKEND = 'amqp'
