@@ -571,7 +571,7 @@ div.FixedHeader_Cloned table {
                         <div class="panel-body">
 
 <div style="width:30%">
-<form class="form-horizontal"  method="post" action="/pc/command_group_result/">
+<form class="form-horizontal"  method="post" action="/operate/command_group_result/">
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">组</label>
     <div class="col-sm-10">
@@ -591,7 +591,7 @@ div.FixedHeader_Cloned table {
   </div>
       <div style="width:150%">
  <button type="button" class="btn btn-primary"  onclick="command_group_result(this);" >确认</button>
-<span class="btn btn-primary" ><a href="/pc/command_group/check_result/" style="color:white"  role="button">查看结果</a></span>
+<span class="btn btn-primary" ><a href="/operate/command_group/check_result/" style="color:white"  role="button">查看结果</a></span>
 
 
 </br></br>
@@ -770,7 +770,7 @@ function command_group_result(ele){
    if($('#g_name').val()&&$('#command').val()){
      var id=$(ele).attr("id");
   $.ajax({  
-    url:"/pc/command_group_result",
+    url:"/operate/command_group_result",
     data:{g_name:$('#g_name').val(),command:$('#command').val()},
     success:function(data){
         if (data) { 
