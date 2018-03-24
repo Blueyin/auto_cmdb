@@ -99,8 +99,14 @@ ___
     python manage.py migrate app
     python manage.py makemigrations
     python manage.py migrate
+
+**10、salt-master配置文件注意：**
+
+    file_roots:
+       base:
+         - /data/auto_cmdb/
     
-**10、安装成功启动登录：**
+**11、安装成功启动登录：**
 
     启动步骤：
     启动/data/auto_cmdb/app/backend
