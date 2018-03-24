@@ -814,10 +814,10 @@ def addmaintenance(request):
 	main_host = json.loads(json.dumps(maint_host))
 	hostid = []
 	main_host = main_host.split('[')[1].split(']')[0]
-	for host in main_host.split(','):
-	    hosts = host.split('"')[1]
-	    hostid.append(zabbix_host_return.objects.filter(name=hosts).values()[0]['host_id'])
-	zabbix.create_maintenance(maint_name, hostid, maint_time)
+	# for host in main_host.split(','):
+	#     hosts = host.split('"')[1]
+	#     hostid.append(zabbix_host_return.objects.filter(name=hosts).values()[0]['host_id'])
+	# zabbix.create_maintenance(maint_name, hostid, maint_time)
 	# res = zabbix.get_maintenance()
 	res = True
 	all_results = zabbix_maintenance.objects.all()
