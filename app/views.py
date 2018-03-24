@@ -726,8 +726,9 @@ def monitor_maintenance(request):
 
 @login_required
 def update_bdhost(request):
-    zabbix = zabbix_api()
-    res = zabbix.template_get()
+    # zabbix = zabbix_api()
+    # res = zabbix.template_get()
+    res = 'ok'
     all_tem = zabbix_tem_return.objects.all()
     all_host = zabbix_host_return.objects.all()
     if res is 'ok':
