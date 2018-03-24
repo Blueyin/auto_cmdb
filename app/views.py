@@ -818,7 +818,8 @@ def addmaintenance(request):
 	    hosts = host.split('"')[1]
 	    hostid.append(zabbix_host_return.objects.filter(name=hosts).values()[0]['host_id'])
 	zabbix.create_maintenance(maint_name, hostid, maint_time)
-	res = zabbix.get_maintenance()
+	# res = zabbix.get_maintenance()
+	res = True
 	all_results = zabbix_maintenance.objects.all()
 	if res is True:
 	    return HttpResponse('ok')
