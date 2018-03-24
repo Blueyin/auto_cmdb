@@ -245,8 +245,8 @@ def isline(hostname):
 
 def file_output(editor, job_name, script, hostName, params):
     lines = isline(hostName)
-    if lines is False:
-	return False
+    # if lines is False:
+	# return False
     if script == 'shell':
 	job_name = job_name.decode('utf-8').encode('utf-8')
 	output = open('/data/auto_cmdb/exec_file/{0}.sh'.format(job_name), 'w')
