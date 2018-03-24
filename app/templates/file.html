@@ -574,7 +574,7 @@ div.FixedHeader_Cloned table {
 
                          
 <div style="width:30%">
-<form class="form-horizontal"  method="post" action="/command_group_result/">
+<form class="form-horizontal"  method="post" action="/operate/command_group_result/">
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">批量主机</label>
     <div class="col-sm-10">
@@ -608,12 +608,10 @@ div.FixedHeader_Cloned table {
     -->
       <div style="width:150%">
  <button type="button" class="btn btn-primary"  onclick="file_result(this);" >推送</button>
-<span class="btn btn-primary" ><a href="/command_group/check_result/" style="color:white"  role="button">查看结果</a></span>
+<span class="btn btn-primary" ><a href="/operate/command_group/check_result/" style="color:white"  role="button">查看结果</a></span>
 
 
 </br></br>
-
-  </form>       
 
 <textarea class="form-control" id="result" style="margin: 0px 7.140625px 0px 0px; width: 545px; height: 125px;"></textarea>
    <!--          
@@ -625,7 +623,7 @@ div.FixedHeader_Cloned table {
                     <!-- /.panel -->
                 </div>
 </div>
-
+                </div>
 
 <div class="modal fade" id='addmacModal'>
   <div class="modal-dialog">
@@ -679,8 +677,9 @@ div.FixedHeader_Cloned table {
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
     <!-- jQuery -->
+
     <script src="/static/js/jquery.min.js"></script>
-<script src="/static/js/echarts-all.js"></script>
+    <script src="/static/js/echarts-all.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="/static/js/bootstrap.min.js"></script>
 
@@ -769,46 +768,13 @@ div.FixedHeader_Cloned table {
     },50)
     </script>
   
-           
-<script>
-	$('#addmacBtn').click(function(){
-		$('#addmacModal').modal('show')
-	})
-	    	$(document).on('click','.deletemac',function(){
-	    		var id = $(this).data('id')
-	    		$.get('/deletemac?id='+id,function(res){
-	    			if (res == 'ok') {
-	    				location.reload()
-	    			};
-	    		})
-	    	})
-	$('#confirmAddmacBtn').click(function(){
-		var is_val = true
-		$('#addmacForm').find('input').each(function(i,v){
-			if (!$(v).val()) {
-				$(v).after('<span class="text-danger">必填字段</span>')
-				is_val = false
-			}else{
-				$(v).next().remove()
-			}
-		})
-		if (is_val) {
 
-		$.get('/addmac',$('#addmacForm').serialize(),function(data){
-			if (data=='ok') {
-				$('#tipModal').find('.modal-body').html('添加成功').end().modal('show')
-			};
-		})
-		};
-
-	})
-</script>
 <script type="text/javascript">
 function file_result(ele){
    if($('#g_name').val()&&$('#file').val()&&$('#dir').val()){
   var id=$(ele).attr("id");
   $.ajax({  
-    url:"/file_result", 
+    url:"/operate/file_result",
     data:{g_name:$('#g_name').val(),file:$('#file').val(),dir:$('#dir').val()},
     success:function(data){
        if (data) { 
@@ -822,10 +788,6 @@ function file_result(ele){
 });
 }}   
 </script>
-</script>
-
-   
-
 </body>
 
 </html>
