@@ -834,12 +834,13 @@ def maintenance_delete(request):
 	main_id = request.GET.get('id')
 	all_result = zabbix_maintenance.objects.filter(id=main_id)
 	id = all_result.values()[0]['maintenanceid']
-	response = zabbix.delete_maintenance(id)
-	if response:
-	    all_result.delete()
-	    return HttpResponseRedirect('/monitor/maintenance/')
-	else:
-	    return HttpResponse('error')
+	return HttpResponseRedirect('/monitor/maintenance/')
+	# response = zabbix.delete_maintenance(id)
+	# if response:
+	#     all_result.delete()
+	#     return HttpResponseRedirect('/monitor/maintenance/')
+	# else:
+	#     return HttpResponse('error')
 
 
 @login_required
