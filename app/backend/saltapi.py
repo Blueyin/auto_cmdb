@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 # coding=utf8
 import urllib2, urllib
+import ssl
 import time
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 try:
     import json
