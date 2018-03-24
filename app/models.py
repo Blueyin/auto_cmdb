@@ -47,7 +47,7 @@ class ServerAsset(models.Model):
     disk = models.CharField(max_length=300, verbose_name=u'硬盘大小')
     hostname = models.CharField(max_length=30, verbose_name=u'主机名')
     ip = models.CharField(max_length=20, verbose_name=u'IP地址')
-    os = models.CharField(max_length=20, verbose_name=u'操作系统')
+    os = models.CharField(max_length=1024, verbose_name=u'操作系统')
 
     def __unicode__(self):
 	return u'%s - %s' % (self.ip, self.hostname)
