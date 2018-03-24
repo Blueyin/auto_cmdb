@@ -478,7 +478,8 @@ def bd_jenkins(request):
 
 @login_required
 def update_job(request):
-    get_all_jobs_name()
+    # 未连接jenkins，关闭
+    # get_all_jobs_name()
     return HttpResponse('ok')
 
 
