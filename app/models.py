@@ -309,6 +309,7 @@ class schedule_for_operate(models.Model):
     list_id = models.CharField(max_length=100, verbose_name=u'序列ID')
     name = models.CharField(max_length=100, verbose_name=u'操作名称')
     job_name = models.CharField(max_length=100, verbose_name=u'任务名称')
+    user = models.CharField(max_length=100, verbose_name=u'用户')
     label = models.CharField(max_length=100, verbose_name=u'标签')
     kinds = models.CharField(max_length=100, verbose_name=u'所属分类')
     host = models.GenericIPAddressField(max_length=100, verbose_name=u'执行主机')
