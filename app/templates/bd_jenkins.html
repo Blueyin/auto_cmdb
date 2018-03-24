@@ -605,10 +605,11 @@ div.FixedHeader_Cloned table {
 	<td>{{all_results.job_date}}</td>
 	<td>{{all_results.job_id}}</td>
 	<td>{{all_results.job_url}}</td>
+    <td><a href="/job/job_release/?id={{all_results.id}}&name={{all_results.job_name}}" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-play"></span></a></td>
+    <td><a href="/job/job_history/?id={{all_results.id}}" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+    <td><a href="#" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-edit"></span></a></td>
+{#	<td><a href="/job/job_edit/?id={{all_results.id}}" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-edit"></span></a></td>#}
 
-        <td><a href="/job/job_release/?id={{all_results.id}}&name={{all_results.job_name}}" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-play"></span></a></td>
-        <td><a href="/job/job_history/?id={{all_results.id}}" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-	<td><a href="/job/job_edit/?id={{all_results.id}}" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-edit"></span></a></td>
 	<td><span class="label label-success">{{all_results.job_status}}</span></td>
 </tr>
         {%endfor%}
