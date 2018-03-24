@@ -491,7 +491,7 @@ def job_history(request):
 	    all_result = jenkins_return.objects.filter(id=id)
 	    job_name = all_result[0]
 	    full_name = all_result.values()[0]['full_name']
-	    get_one_result(full_name, job_name)
+	    # get_one_result(full_name, job_name)
 	    all_result = job_history_return.objects.all()
 	except:
 	    all_result = job_history_return.objects.filter(id=id)
