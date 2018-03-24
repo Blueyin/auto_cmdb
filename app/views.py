@@ -514,6 +514,7 @@ def job_history_result(request):
 def job_release(request):
     if request.method == 'GET':
 	try:
+	    job_enable = 0
 	    global job_enable
 	    id = request.GET.get('id')
 	    name = request.GET.get('name')
