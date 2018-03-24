@@ -595,7 +595,7 @@ def asset_delete(request, id=None):
     if request.method == 'GET':
 	id = request.GET.get('id')
 	ServerAsset.objects.filter(id=id).delete()
-	return HttpResponseRedirect('/asset/')
+	return HttpResponseRedirect('/pc/asset/')
 
 
 @login_required
