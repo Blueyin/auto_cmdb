@@ -318,6 +318,7 @@ def work_running(jobName, user, hostName, script, action, editor, params):
     ret = [job_name, time_now]
     statu = '执行中'
     update_goto_running(job_name, job_id, statu)
+    time.sleep(2)
     results, status = select_schedule_running(job_id, time_now, action, command_names)
     return job_id, results
 
