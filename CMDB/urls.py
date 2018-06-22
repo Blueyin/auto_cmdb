@@ -88,7 +88,7 @@ urlpatterns = patterns('',
 		       (r'^operate/work/workschedule/$', work_schedule),
 		       (r'^operate/work/workresult/$', work_result),
 
-		       (r'^soccer/$', soccer),
+		       (r'^soccer/soccer/$', soccer),
 
 		       (r'^job/$', job),
 		       (r'^job/bd_jenkins/$', bd_jenkins),
