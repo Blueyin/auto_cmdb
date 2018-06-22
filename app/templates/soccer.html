@@ -791,6 +791,10 @@ div.FixedHeader_Cloned table {
         }
 
     },100)
+    $('#dataTables-example').dataTable( {
+        //跟数组下标一样，第一列从0开始，这里表格初始化时，第四列默认降序
+        "order": [[ 6, "desc" ]]
+    } );
     </script>
   
 {#<script>#}
