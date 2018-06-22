@@ -487,6 +487,7 @@ div.FixedHeader_Cloned table {
                         <li>
                             <a href="/index"><i class="fa fa-dashboard fa-fw"></i> 控制台</a>
                         </li>
+                    </ul>
                         <li>
                             <a href="/idc"><i class="fa fa-tasks fa-fw"></i>服务器管理</a>
                             <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>-->
@@ -536,7 +537,6 @@ div.FixedHeader_Cloned table {
                         <li>
                             <a href="/soccer"><i class="fa fa-bar-chart"></i>足球预测</a>
                         </li>
-                    </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
@@ -786,23 +786,21 @@ div.FixedHeader_Cloned table {
     },100)
     </script>
   
-           
 
-</script>
-
-<script type="text/javascript">  
-    $("#dataTables-example").find("tr").each(function () {
-　　    if ($(this).children('td:eq(3)').text() == "警告"){
-	    //$(this).children('td:eq(3)').css("class","label label-warning");
-	    $(this).children('td:eq(3)').children('span').addClass("label label-warning");
-	}else if($(this).children('td:eq(3)').text() == "信息"){
-	    $(this).children('td:eq(3)').children('span').addClass("label label-primary");
-	}else{
-	    $(this).children('td:eq(3)').children('span').addClass("label label-danger");
-	}
-    });
-
-</script>  
+{##}
+{#<script type="text/javascript">  #}
+{#    $("#dataTables-example").find("tr").each(function () {#}
+{#    if ($(this).children('td:eq(3)').text() == "警告"){#}
+{#        //$(this).children('td:eq(3)').css("class","label label-warning");#}
+{#        $(this).children('td:eq(3)').children('span').addClass("label label-warning");#}
+{#    }else if($(this).children('td:eq(3)').text() == "信息"){#}
+{#        $(this).children('td:eq(3)').children('span').addClass("label label-primary");#}
+{#    }else{#}
+{#        $(this).children('td:eq(3)').children('span').addClass("label label-danger");#}
+{#    }#}
+{#    });#}
+{##}
+{#</script>  #}
 </body>
 
 </html>
