@@ -675,7 +675,8 @@ div.FixedHeader_Cloned table {
 
         <td>{{all_results.name}}</td>
         <td>{{all_results.forward}}</td>
-        <td><span class="label label-info">{{all_results.forwarde}}</span></td>
+        <td><span class="label label-info">{{all_results.forwarde}}</span>
+            <div id="star" data-score="1"></div></td>
         <td><span class="label label-info">{{all_results.defend}}</span></td>
         <td><span class="label label-info">{{all_results.hkind}}</span></td>
         <td><span class="label label-info">{{all_results.bskind}}</span></td>
@@ -787,7 +788,13 @@ div.FixedHeader_Cloned table {
     },100)
     </script>
   
-
+<script>
+    $('#star').raty({
+        score: function() {
+            return $(this).attr('data-score');
+        }
+    });
+</script>
 {##}
 {#<script type="text/javascript">  #}
 {#    $("#dataTables-example").find("tr").each(function () {#}
