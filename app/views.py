@@ -1436,8 +1436,10 @@ def select_params(schedule_id):
     params_result = schedule_params.objects.filter(job_id=job_id).values()
     return params_result
 
-@login_required
+
+    # return render_to_response("soccer.html", locals())
+
+
 def soccer(request):
     all_result = soccer.objects.all()
     return render_to_response("index.html", locals())
-    # return render_to_response("soccer.html", locals())
