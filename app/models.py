@@ -372,7 +372,7 @@ class soccer(models.Model):
     result = models.CharField(max_length=100, verbose_name=u'战绩')
     hkind = models.CharField(max_length=100, verbose_name=u'黑马强度')
     bskind = models.CharField(max_length=100, verbose_name=u'大小球强度')
-    forward = models.CharField(max_length=100, verbose_name=u'前锋')
+    forward = models.CharField(max_length=100, verbose_name=u'前锋人员')
     forwarde = models.CharField(max_length=100, verbose_name=u'前锋能力')
     defend = models.CharField(max_length=100, verbose_name=u'防守强度')
     forecast = models.CharField(max_length=100, verbose_name=u'预测')
