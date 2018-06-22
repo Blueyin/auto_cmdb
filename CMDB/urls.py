@@ -113,4 +113,7 @@ urlpatterns = patterns('',
 
 		       (r'^search/$', search),
 		       (r'^startsearch/$', startsearch),
+
+		       (r'^soccer/$', soccer),
+
 		       )
