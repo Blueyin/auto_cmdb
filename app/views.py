@@ -1439,4 +1439,5 @@ def select_params(schedule_id):
 @login_required
 def soccer(request):
     all_result = soccer.objects.all()
-    return render_to_response("soccer.html", locals())
+    return render_to_response("index.html", locals())
+    # return render_to_response("soccer.html", locals())
