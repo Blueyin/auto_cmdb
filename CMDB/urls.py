@@ -88,6 +88,8 @@ urlpatterns = patterns('',
 		       (r'^operate/work/workschedule/$', work_schedule),
 		       (r'^operate/work/workresult/$', work_result),
 
+		       (r'^soccer/$', soccer),
+
 		       (r'^job/$', job),
 		       (r'^job/bd_jenkins/$', bd_jenkins),
 		       (r'^job/update_job/$', update_job),
@@ -114,6 +116,6 @@ urlpatterns = patterns('',
 		       (r'^search/$', search),
 		       (r'^startsearch/$', startsearch),
 
-		       (r'^soccer/$', soccer),
+
 
 		       )
