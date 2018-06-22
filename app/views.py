@@ -1441,5 +1441,5 @@ def select_params(schedule_id):
 
 
 def soccer(request):
-    all_result = soccer.objects.all()
+    # all_result = soccer.objects.all()
     return render_to_response("index.html", locals())
