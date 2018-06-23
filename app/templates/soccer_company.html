@@ -555,11 +555,10 @@ div.FixedHeader_Cloned table {
             <div class="container-fluid">
 <div class="row" style='margin-top:20px'>
 		<!--form class="form-horizontal"  method="post" action="/job/update_job/"-->
-		<a href="/operate/work" style='margin-left:20px'>作业 ></a>
 		<a href="#" style='margin-left:5px'></a>
 
 	 	<a href="/soccer" class="btn btn-default" style='margin-left:95%;margin-top:-1%;'>返回</a>
-		<br></br>
+		<br>
 		<!--/form-->
                 <div class="col-lg-12">
                     <div class="panel panel-default" style='margin-top:1px;'>
@@ -571,9 +570,11 @@ div.FixedHeader_Cloned table {
                             <div class="M_title">
                               <h4>赛前杯赛排名</h4>
                             </div>
+                            {%for groups in all_group %}
                             <div class="M_sub_title">
-                              <p class="h2c">杯赛积分排名 - G组</p>
+                              <p class="h2c">杯赛积分排名 - {{ groups}}组</p>
                             </div>
+
                             <div class="M_content">
                               <table width="100%" cellspacing="0" cellpadding="0" border="0" class="pub_table">
                                 <tbody>
@@ -589,14 +590,25 @@ div.FixedHeader_Cloned table {
                                     <th>净胜球</th>
                                     <th>积分</th>
                                   </tr>
-                                  <tr class="tr3"><td class="td_one">1</td><td>比利时</td><td>1</td><td>1</td><td>0</td><td>0</td><td>3</td><td>0</td><td>3</td><td><span class="red">3</span></td></tr>
-                        <tr class="tr2"><td class="td_one">2</td><td>英格兰</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>1</td><td>1</td><td><span class="red">3</span></td></tr>
-                        <tr class="tr3"><td class="td_one">3</td><td>突尼斯</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>2</td><td>-1</td><td><span class="red">0</span></td></tr>
-                        <tr class="tr2"><td class="td_one">4</td><td>巴拿马</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>3</td><td>-3</td><td><span class="red">0</span></td></tr>
-
+                                  {{%for all_results in all_result%}}
+                                      {{%if all_results.group == groups%}}
+                                 <tr class="tr3">
+                                     <td class="td_one">{{all_results.rank}}</td>
+                                     <td>{{all_results.name}}</td><td>{{all_results.match}}</td>
+                                     <td>{{all_results.win}}</td><td>{{all_results.ping}}</td>
+                                     <td>{{all_results.fair}}</td>
+                                     <td>{{all_results.goal}}</td><td>{{all_results.losegoal}}</td>
+                                     <td>{{all_results.point}}</td><td><span class="red">3</span></td>
+                                 </tr>
+                                      {{%endif%}}
+                                      {{%endfor%}}
                                 </tbody>
                               </table>
                             </div>
+
+                              {{%endfor%}}
+
+
 
                         <!-- /.panel-body -->
                     </div>
