@@ -2,16 +2,14 @@
 <html lang="en">
 
 <head>
-<!--
 <link href="http://51reboot.com/static/images/favicon.ico" type="image/x-icon" rel="shortcut icon">
--->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
-     <title>Dev OPs</title> 
+    <title>Dev OPs</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
@@ -22,7 +20,6 @@
     <!-- Custom CSS -->
     <link href="/static/css/sb-admin-2.css" rel="stylesheet">
 
-    <link href="/static/css/star-rating.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="/static/css/font-awesome.min.css" rel="stylesheet">
     <style>
@@ -103,8 +100,8 @@ table.dataTable thead .sorting_desc_disabled {
 
 /*table.dataTable thead .sorting { background: url('../images/sort_both.png') no-repeat center right; }
 table.dataTable thead .sorting_asc { background: url('../images/sort_asc.png') no-repeat center right; }
-table.dataTable thead .sorting_desc { background: url('../images/sort_desc.png') no-repeat center right; }
-*/
+table.dataTable thead .sorting_desc { background: url('../images/sort_desc.png') no-repeat center right; }*/
+
 table.dataTable thead .sorting_asc_disabled { background: url('../images/sort_asc_disabled.png') no-repeat center right; }
 table.dataTable thead .sorting_desc_disabled { background: url('../images/sort_desc_disabled.png') no-repeat center right; }
 
@@ -352,6 +349,13 @@ div.FixedHeader_Cloned table {
     width: 0%;
     z-index: 2000;
 }
+#alertText{
+    position: absolute;
+    line-height: 50px;
+    left: 250px;
+    color:green;
+    font-size: 20px;
+}
     </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -376,8 +380,10 @@ div.FixedHeader_Cloned table {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-	       <img src="/static/pic/cmdb.png" height="50px"/>
+               <img src="/static/pic/cmdb.png" height="50px"/>
             </div>
+            <p id="alertText" class='text-success'> 
+            </p>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
@@ -483,13 +489,12 @@ div.FixedHeader_Cloned table {
             <!-- /.navbar-top-links -->
 
             <div class="navbar-default sidebar" role="navigation">
-                <ul class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li>
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu"> 
+			<li>
                             <a href="/index"><i class="fa fa-dashboard fa-fw"></i> 控制台</a>
                         </li>
-
-                        <li>
+			<li>
                             <a href="/idc"><i class="fa fa-tasks fa-fw"></i>服务器管理</a>
                             <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>-->
                             <ul class="nav nav-pills nav-stacked">
@@ -517,7 +522,8 @@ div.FixedHeader_Cloned table {
                                 <li><a href="/operate/schedule">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;任务编排</a></li>
                             </ul>
                         </li>
-			<li>
+
+                        <li>
                             <a href="/job"><i class="fa fa-tags"></i>任务流程</a>
                         </li>
                         <li>
@@ -538,188 +544,65 @@ div.FixedHeader_Cloned table {
                         <li>
                             <a href="/soccer"><i class="fa fa-bar-chart"></i>足球预测</a>
                         </li>
-                </ul>
+                    </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
-          
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- <h1 class="page-header">控制台</h1> -->
-                </div>
-                <!-- /.col-lg-12 -->
-
-                </div>
-
 <div class="row" style='margin-top:20px'>
-                 <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-support fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">{{zy_num}}</div>
-                                    <div>球队排行</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="/pc/asset">
-                            <div class="panel-footer">
-                                <span class="pull-left">查看全部</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-               <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">{{host_num}}</div>
-                                    <div>球队赛果</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="/pc/mac">
-                            <div class="panel-footer">
-                                <span class="pull-left">查看全部</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">{{jj_num}}</div>
-                                    <div>黑马球队</div>
-                                </div> 
-                            </div>
-                        </div>
-                        <a href="/monitor/dash/urgent_alarm">
-                            <div class="panel-footer">
-                                <span class="pull-left">查看全部</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+		<!--form class="form-horizontal"  method="post" action="/job/update_job/"-->
+		<a href="/operate/work" style='margin-left:20px'>作业 ></a>
+		<a href="#" style='margin-left:5px'></a>
 
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-exclamation-circle fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">{{gj_num}}</div>
-                                    <div>爆发球队</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="/monitor/dash/alarm">
-                            <div class="panel-footer">
-                                <span class="pull-left">{{login_user}}</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-
-</div>
-<div class="row" style='margin-top:20px'>
+	 	<a href="/soccer" class="btn btn-default" style='margin-left:95%;margin-top:-1%;'>返回</a>
+		<br></br>
+		<!--/form-->
                 <div class="col-lg-12">
-                    <div class="panel panel-default" style='margin-top:20px;'>
+                    <div class="panel panel-default" style='margin-top:1px;'>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="dataTable_wrapper">
-				<h4>世界杯球队</h4>
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th>国家队</th>
-                                            <th>前锋</th>
-                                            <th>前锋能力</th>
-                                            <th>防守强度</th>
-                                            <th>黑马强度</th>
-                                            <th>大小球强度</th>
-                                            <th>目前战绩</th>
-                                            <th>预测胜平负</th>
-                                            <th>状态</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-           {%for all_results in all_result %}
-<tr>
-
-        <td><a href="/operate/work/workoperate?id={{all_results.id}}">{{all_results.name}}</a></td>
-        <td>{{all_results.forward}}</td>
-        <td>
-            <input id="input-1a" value={{all_results.forwarde}} type="number" class="rating" min=0 max=5 step=0.5 data-size="l" ></td>
-        <td> <input id="input-2a" value={{all_results.defend}} type="number" class="rating" min=0 max=5 step=0.5 data-size="l" ></td>
-        <td>
-            <input id="input-3a" value={{all_results.hkind}} type="number" class="rating" min=0 max=5 step=0.5 data-size="l" ></td>
-        <td><input id="input-4a" value={{all_results.bskind}} type="number" class="rating" min=0 max=5 step=0.5 data-size="l" ></td>
-        <td><span class="label label-danger"> {{all_results.result}}</span></td>
-        <td><span class="label label-primary"> {{all_results.forecast}}</span></td>
-        <td>{%if all_results.status == '弱'%}
-            <span class="label label-default">{{all_results.status}}</span>
-            {% elif all_results.status == '强' %}
-            <span class="label label-danger">{{all_results.status}}</span>
-            {% else %}
-            <span class="label label-success">{{all_results.status}}</span>
-            {% endif %}
-            </td>
-
-</tr>
-          {%endfor%}
-                                    </tbody>
-                                </table>
+                               <!-- 国际足联排名 end -->
+                          <!--杯赛积分排名 - A组-->
+                          <div class="M_box">
+                            <div class="M_title">
+                              <h4>赛前杯赛排名</h4>
                             </div>
-                            <!-- /.table-responsive -->
-                        </div>
+                            <div class="M_sub_title">
+                              <p class="h2c">杯赛积分排名 - G组</p>
+                            </div>
+                            <div class="M_content">
+                              <table width="100%" cellspacing="0" cellpadding="0" border="0" class="pub_table">
+                                <tbody>
+                                  <tr>
+                                    <th class="th_one">排名</th>
+                                    <th>球队</th>
+                                    <th>比赛</th>
+                                    <th width="8%">胜</th>
+                                    <th width="8%">平</th>
+                                    <th width="8%">负</th>
+                                    <th>进球</th>
+                                    <th>失球</th>
+                                    <th>净胜球</th>
+                                    <th>积分</th>
+                                  </tr>
+                                  <tr class="tr3"><td class="td_one">1</td><td>比利时</td><td>1</td><td>1</td><td>0</td><td>0</td><td>3</td><td>0</td><td>3</td><td><span class="red">3</span></td></tr>
+                        <tr class="tr2"><td class="td_one">2</td><td>英格兰</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>1</td><td>1</td><td><span class="red">3</span></td></tr>
+                        <tr class="tr3"><td class="td_one">3</td><td>突尼斯</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>2</td><td>-1</td><td><span class="red">0</span></td></tr>
+                        <tr class="tr2"><td class="td_one">4</td><td>巴拿马</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>3</td><td>-3</td><td><span class="red">0</span></td></tr>
+
+                                </tbody>
+                              </table>
+                            </div>
+
                         <!-- /.panel-body -->
                     </div>
-                                        <!-- /.panel -->
+                    <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-12 -->
 </div>
-
-
-
-                        <!-- <h1 class="page-header">Blank</h1> -->
-                <!-- /.row -->
-            </div>
-            <!-- /.container-fluid -->
-        </div>
-        <!-- /#page-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
 <div class="modal fade" id='tipModal'>
   <div class="modal-dialog">
     <div class="modal-content">
@@ -737,18 +620,24 @@ div.FixedHeader_Cloned table {
 </div><!-- /.modal -->
     <!-- jQuery -->
     <script src="/static/js/jquery.min.js"></script>
-    <!--script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script-->
+<script src="/static/js/echarts-all.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="/static/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/static/js/metisMenu.min.js"></script>
-         <script src="/static/js/jquery.dataTables.min.js"></script>
-    <script src="/static/js/star-rating.js"></script>
+        <script src="/static/js/jquery.dataTables.min.js"></script>
 
     <script src='/static/js/dataTables.bootstrap.min.js'></script>
-    <!-- Custom Theme JavaScript --> 
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/js/jquery.validate.min.js"></script>
     <script src="/static/js/sb-admin-2.js"></script>
+    <script src="https://cdn.bootcss.com/codemirror/5.32.0/codemirror.js"></script>
+    <link href="https://cdn.bootcss.com/codemirror/5.32.0/codemirror.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/codemirror/5.32.0/mode/shell/shell.js"></script>
+    <script src="https://cdn.bootcss.com/codemirror/5.32.0/mode/shell/shell.min.js"></script>
+    <script src="https://cdn.bootcss.com/codemirror/5.32.0/mode/python/python.js"></script>
+    <script src="https://cdn.bootcss.com/codemirror/5.32.0/mode/python/python.min.js"></script>
     <script>
     $('#tipModal').on('hide.bs.modal',function(){
         location.reload()
@@ -783,7 +672,6 @@ div.FixedHeader_Cloned table {
     $.fn.dataTable.defaults.oLanguage=oLanguage; 
     $('#dataTables-example').DataTable({
             responsive: true,
-{#            "bRetrieve": false#}
             // iDisplayLength:3
     });
     });
@@ -801,33 +689,47 @@ div.FixedHeader_Cloned table {
         }
 
     },100)
-{#    $('#dataTables-example').dataTable( {#}
-{#        //跟数组下标一样，第一列从0开始，这里表格初始化时，第四列默认降序#}
-{#        "order": [[ 6, "desc" ]]#}
-{#    } );#}
+    var is_right = true
+    setInterval(function(){
+        var t = $('#alertText')
+        var left = parseInt(t.css('left'))
+        var val
+        if (is_right) {        
+            if (left<300) {
+                val = left+1
+                t.css('left',val)
+            }else{
+                is_right = false
+            }
+        }else{
+            if (left>250) {
+                val = left-1
+                t.css('left',val)
+            }else{
+                is_right = true
+            }
+
+        }
+        // if (left<300&&left>250) {
+        //     t.css('left',left+1)
+        // };
+    },50)
     </script>
-  
-{#<script>#}
-{#    $('#star').rating({#}
-{#        score: function() {#}
-{#            return $(this).attr('data-score');#}
-{#        }#}
-{#    });#}
-{#</script>#}
-{##}
-{#<script type="text/javascript">  #}
-{#    $("#dataTables-example").find("tr").each(function () {#}
-{#    if ($(this).children('td:eq(3)').text() == "警告"){#}
-{#        //$(this).children('td:eq(3)').css("class","label label-warning");#}
-{#        $(this).children('td:eq(3)').children('span').addClass("label label-warning");#}
-{#    }else if($(this).children('td:eq(3)').text() == "信息"){#}
-{#        $(this).children('td:eq(3)').children('span').addClass("label label-primary");#}
-{#    }else{#}
-{#        $(this).children('td:eq(3)').children('span').addClass("label label-danger");#}
-{#    }#}
-{#    });#}
-{##}
-{#</script>  #}
+
+
+
+<script>
+    var myTextarea = document.getElementById('editor');
+    var CodeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
+                mode: "shell",
+                lineNumbers: true,
+                matchBrackets: true,
+                autoCloseBrackets: true,
+                extraKeys: {"Ctrl": "autocomplete"},
+        }); 
+</script>
+
+
 </body>
 
 </html>
