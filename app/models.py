@@ -401,3 +401,13 @@ class Soccers_group(models.Model):
 
     class Meta:
 	verbose_name = u'国家队'
+
+class Soccer_groups(models.Model):
+    group = models.CharField(max_length=100, verbose_name=u'小组')
+
+
+    def __unicode__(self):
+	return self.grouo
+
+    class Meta:
+	verbose_name = u'小组'
