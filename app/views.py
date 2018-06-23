@@ -1472,7 +1472,7 @@ def soccer(request):
 
 
 def soccer_rank(request):
-    company_id = request.GET['id']
+    # company_id = request.GET['id']
     #all_result = Soccers.objects.filter(id=company_id)
     all_group = ('A','B','C','D','E','F','G','H')
     all_result = Soccers_group.objects.all()
