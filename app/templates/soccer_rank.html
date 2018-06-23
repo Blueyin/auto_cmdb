@@ -557,7 +557,6 @@ div.FixedHeader_Cloned table {
 		<!--form class="form-horizontal"  method="post" action="/job/update_job/"-->
 		<a href="#" style='margin-left:5px'></a>
 
-	 	<a href="/soccer" class="btn btn-default" style='margin-left:95%;margin-top:-1%;'>返回</a>
 		<br>
 		<!--/form-->
                 <div class="col-lg-12">
@@ -570,9 +569,9 @@ div.FixedHeader_Cloned table {
                             <div class="M_title">
                               <h4>赛前杯赛排名</h4>
                             </div>
-{#                            {%for groups in all_group %}#}
+                            {%for groups in all_group%}
                             <div class="M_sub_title">
-                              <p class="h2c">杯赛积分排名 - {{ groups}}组</p>
+                              <p class="h2c">杯赛积分排名 - {{groups}}组</p>
                             </div>
 
                             <div class="M_content">
@@ -606,7 +605,7 @@ div.FixedHeader_Cloned table {
                               </table>
                             </div>
 {##}
-{#                              {{%endfor%}}#}
+                              {{%endfor%}}
 
 
                         <!-- /.panel-body -->
