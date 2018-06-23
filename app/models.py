@@ -401,3 +401,20 @@ class Soccers_group(models.Model):
 
     class Meta:
 	verbose_name = u'国家队'
+
+    class Soccer_group(models.Model):
+        name = models.CharField(max_length=100, verbose_name=u'国家队')
+        group = models.CharField(max_length=100, verbose_name=u'小组')
+        rank = models.CharField(max_length=100, verbose_name=u'排名')
+        match = models.CharField(max_length=100, verbose_name=u'比赛')
+        win = models.CharField(max_length=100, verbose_name=u'胜场')
+        ping = models.CharField(max_length=100, verbose_name=u'平场')
+        fair = models.CharField(max_length=100, verbose_name=u'负场')
+        goal = models.CharField(max_length=100, verbose_name=u'净胜球')
+        point = models.CharField(max_length=100, verbose_name=u'积分')
+
+        def __unicode__(self):
+            return self.name
+
+        class Meta:
+            verbose_name = u'国家队'
