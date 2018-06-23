@@ -1466,7 +1466,6 @@ def select_params(schedule_id):
 
 
 def soccer(request):
-    return params_result
     all_result = Soccers.objects.all().order_by("-status")
     # all_idc = Idc.objects.all()
     return render_to_response("soccer.html", locals())
