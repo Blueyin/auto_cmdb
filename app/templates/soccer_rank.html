@@ -589,18 +589,18 @@ div.FixedHeader_Cloned table {
                                     <th>净胜球</th>
                                     <th>积分</th>
                                   </tr>
-{#                                  {{%for all_results in all_result%}}#}
-{#                                      {{%if all_results.group == groups%}}#}
-{#                                 <tr class="tr3">#}
-{#                                     <td class="td_one">{{all_results.rank}}</td>#}
-{#                                     <td>{{all_results.name}}</td><td>{{all_results.match}}</td>#}
-{#                                     <td>{{all_results.win}}</td><td>{{all_results.ping}}</td>#}
-{#                                     <td>{{all_results.fair}}</td>#}
-{#                                     <td>{{all_results.goal}}</td><td>{{all_results.losegoal}}</td>#}
-{#                                     <td>{{all_results.point}}</td><td><span class="red">3</span></td>#}
-{#                                 </tr>#}
-{#                                      {{%endif%}}#}
-{#                                      {{%endfor%}}#}
+                                  {%for all_results in all_result%}
+                                      {%if all_results.group == groups%}
+                                          <tr class="tr3">
+                                            <td class="td_one">{{all_results.rank}}</td>
+                                            <td>{{all_results.name}}</td><td>{{all_results.match}}</td>
+                                            <td>{{all_results.win}}</td><td>{{all_results.ping}}</td>
+                                            <td>{{all_results.fair}}</td>
+                                            <td>{{all_results.goal}}</td><td>{{all_results.losegoal}}</td>
+                                            <td>{{all_results.point}}</td><td><span class="red">3</span></td>
+                                          </tr>
+                                      {%endif%}
+                                  {%endfor%}
                                 </tbody>
                               </table>
                             </div>
