@@ -1476,5 +1476,5 @@ def soccer_rank(request):
     #all_result = Soccers.objects.filter(id=company_id)
     all_group = ('A','B','C','D','E','F','G','H')
     # all_result = Soccer_group.objects.all()
-    all_result = Soccer_group.objects.all()
+    all_result = Soccers_group.objects.all()
     return render_to_response("soccer_rank.html", locals())
