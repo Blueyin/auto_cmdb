@@ -569,9 +569,9 @@ div.FixedHeader_Cloned table {
                             <div class="M_title">
                               <h4>赛前杯赛排名</h4>
                             </div>
-                           {%for groups in all_group%}
+                           {%for all_groups in all_group%}
                             <div class="M_sub_title">
-                              <p class="h2c">杯赛积分排名 - {{groups}}组</p>
+                              <p class="h2c">杯赛积分排名 - {{ all_groups.group}}组</p>
                             </div>
 
                             <div class="M_content">
@@ -604,8 +604,7 @@ div.FixedHeader_Cloned table {
                                 </tbody>
                               </table>
                             </div>
-{##}
-                              {%endfor%}
+                            {%endfor%}
 
 
                         <!-- /.panel-body -->
@@ -629,6 +628,7 @@ div.FixedHeader_Cloned table {
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
     <!-- jQuery -->
+
     <script src="/static/js/jquery.min.js"></script>
 <script src="/static/js/echarts-all.js"></script>
     <!-- Bootstrap Core JavaScript -->
@@ -739,6 +739,6 @@ div.FixedHeader_Cloned table {
 </script>
 
 
-</body>
+
 
 </html>
