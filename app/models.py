@@ -393,7 +393,9 @@ class Soccers_group(models.Model):
     win = models.CharField(max_length=100, verbose_name=u'胜场')
     ping = models.CharField(max_length=100, verbose_name=u'平场')
     fair = models.CharField(max_length=100, verbose_name=u'负场')
-    goal = models.CharField(max_length=100, verbose_name=u'净胜球')
+    goal = models.CharField(max_length=100, verbose_name=u'进球')
+    losegoal = models.CharField(max_length=100, verbose_name=u'失球')
+    gd = models.CharField(max_length=100, verbose_name=u'净胜球')
     point = models.CharField(max_length=100, verbose_name=u'积分')
 
     def __unicode__(self):
