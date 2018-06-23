@@ -1460,13 +1460,13 @@ def work_result(request):
 def select_params(schedule_id):
     job_id = schedule_for_operate.objects.filter(schedule_id=schedule_id).values()[0]['id']
     params_result = schedule_params.objects.filter(job_id=job_id).values()
-    return params_result
 
 
     # return render_to_response("soccer.html", locals())
 
 
 def soccer(request):
+    return params_result
     all_result = Soccers.objects.all().order_by("-status")
     # all_idc = Idc.objects.all()
     return render_to_response("soccer.html", locals())
