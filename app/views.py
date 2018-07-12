@@ -900,8 +900,6 @@ def getdata(request):
             pass
         return HttpResponse('ok')
 
-def power(request):
-    return render_to_response("power.html", locals())
 
 
 def search(request):
